@@ -27,6 +27,7 @@ import { TbFirstAidKit } from "react-icons/tb";
 import { RiVirusLine } from "react-icons/ri";
 import { TbPlant2 } from "react-icons/tb";
 import { RiHandHeartLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Sec = [
   {
@@ -71,15 +72,17 @@ const Navbar = () => {
     <Box>
       {isLargerThan1280 ? (
         //   Laptop
-        <Box bgColor={"purple.600"}>
-          <Flex justifyContent={"space-between"} mr={10} ml={10}>
+        <Box bgColor={"purple.600"} position={"fixed"} width={"100%"}> 
+          <Flex p={1} justifyContent={"space-between"} mr={10} ml={10}>
             {/* Box 1 */}
             <Flex gap={100}>
               <Box pl={"20px"}>
+                <Link to={"/"}>
                 <Image
                   width={{ base: "50px", md: "80px", lg: "80px" }}
                   src="https://i.postimg.cc/90Zh1SDT/Axen.png"
                 />
+                </Link>
               </Box>
 
               <Box>
@@ -105,17 +108,23 @@ const Navbar = () => {
             </Flex>
             {/* Box 3  */}
             <Box>
-              <Flex mt={1} gap={"10px"} pr={"20px"}>
+              <Flex  gap={"10px"} pr={"20px"}>
+                <Link to={"/login"}>
                 <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
                   <Text fontSize={"13px"}>Login</Text>
                 </Button>
+                </Link>
+                <Link to={"/signin"}>
                 <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
                   <Text fontSize={"13px"}>Sign In</Text>
                 </Button>
+                </Link>
+                <Link to={"/cart"} >
                 <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
                   <Icon as={HiShoppingCart} />
                   <Text fontSize={"13px"}>Cart</Text>
                 </Button>
+                </Link>
               </Flex>
             </Box>
           </Flex>
