@@ -43,10 +43,6 @@ const Login = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="username">
-              <FormLabel>Username</FormLabel>
-              <Input type="text" />
-            </FormControl>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input type="email" />

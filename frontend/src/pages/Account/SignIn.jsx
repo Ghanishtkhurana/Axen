@@ -16,12 +16,34 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 import React from "react";
+import { useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
+import {useSelector,useDispatch} from "react-redux"
+import { register } from "../../redux/auth/auth.action";
+
+const initState = {
+  username: "",
+  email: "",
+  password: "",
+};
 
 const SignIn = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const [formstate, setFormstate] = useState(initState);
+  const {isAuth,token} = useSelector((store)=>store.auth)
+  const dispatch = useDispatch()
+  console.log(isAuth)
+
+  const handleTheChange = (e) => {
+    setFormstate({...formstate,[e.target.name] : e.target.value})
+  };
+  const handleTheSubmit = () => {
+    // console.log("hi")
+    // console.log(formstate)
+    dispatch(register(formstate))
+  };
   return (
     <Flex
       minH={"100vh"}
@@ -45,23 +67,30 @@ const SignIn = () => {
           <Stack spacing={4}>
             <FormControl id="username">
               <FormLabel>Username</FormLabel>
-              <Input type="text" />
+              <Input onChange={handleTheChange} name="username" type="text" />
             </FormControl>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input onChange={handleTheChange} type="email" name="email" />
             </FormControl>
             {/* Password  */}
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup size="md">
                 <Input
+                  name="password"
+                  onChange={handleTheChange}
                   pr="4.5rem"
                   type={show ? "text" : "password"}
                   placeholder="Enter password"
                 />
                 <InputRightElement>
-                  <Button _hover={{}} bg={"none"} size="sm" onClick={handleClick}>
+                  <Button
+                    _hover={{}}
+                    bg={"none"}
+                    size="sm"
+                    onClick={handleClick}
+                  >
                     {show ? (
                       <Icon color={"rgb(107,70,193)"} as={BsFillEyeSlashFill} />
                     ) : (
@@ -87,6 +116,7 @@ const SignIn = () => {
                 _hover={{
                   bg: "rgb(107,70,193)",
                 }}
+                onClick={handleTheSubmit}
               >
                 Sign in
               </Button>

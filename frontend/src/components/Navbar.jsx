@@ -72,7 +72,7 @@ const Navbar = () => {
     <Box>
       {isLargerThan1280 ? (
         //   Laptop
-        <Box bgColor={"purple.600"} position={"fixed"} width={"100%"}> 
+        <Box zIndex={3} bgColor={"purple.600"} position={"fixed"} width={"100%"}> 
           <Flex p={1} justifyContent={"space-between"} mr={10} ml={10}>
             {/* Box 1 */}
             <Flex gap={100}>
