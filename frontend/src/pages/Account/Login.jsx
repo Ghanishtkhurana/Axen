@@ -14,14 +14,45 @@ import {
   useColorModeValue,
   InputRightElement,
   InputGroup,
+  useToast,
 } from "@chakra-ui/react";
 import React from 'react'
+import { useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
+import {useSelector,useDispatch} from "react-redux"
+import { login } from "../../redux/auth/auth.action";
 
+const initState = {
+  email : "" ,
+  password : ""
+}
 const Login = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const [msg,setMsg] = useState("")
+  const [formstate,setFormstate] = useState(initState)
+  const {isAuth,token,message,status} =useSelector((store)=>store.auth)
+  const dispatch = useDispatch()
+  console.log("Message =>",message)
+  console.log("status =>",status)
+  const toast = useToast()
+
+
+  const handleTheChange = (e)=>{
+    setFormstate({...formstate,[e.target.name] : e.target.value})
+  }
+  const handleTheSubmit = ()=>{
+    console.log(formstate)
+    dispatch(login(formstate))
+    toast({
+      position : "top" ,
+      title: `${message}`,
+      status: `${status}`,
+      duration: 9000,
+      isClosable: true,
+    })
+  }
   return (
     <Flex
       minH={"100vh"}
@@ -45,13 +76,14 @@ const Login = () => {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input name='email' onChange={handleTheChange} type="email" />
             </FormControl>
             {/* Password  */}
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup size="md">
                 <Input
+                 name='password' onChange={handleTheChange}
                   pr="4.5rem"
                   type={show ? "text" : "password"}
                   placeholder="Enter password"
@@ -83,6 +115,7 @@ const Login = () => {
                 _hover={{
                   bg: "rgb(107,70,193)",
                 }}
+                onClick={handleTheSubmit}
               >
                 Login
               </Button>

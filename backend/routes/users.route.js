@@ -18,10 +18,11 @@ app.get("/", async (req, res) => {
 app.post("/signin", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const exist = await Users.find({ email: email });
+    const exist = await Users.findOne({ email: email });
     if (exist) {
       return res.send(
         "user with this email already exist please choose different email"
+        // exist
       );
     } else {
       bcrypt.hash(password, 5, async (err, hash) => {
@@ -33,7 +34,7 @@ app.post("/signin", async (req, res) => {
             email: email,
             password: hash,
           });
-          res.send(user);
+          res.status(200).send("Sign up success");
         }
       });
     }
@@ -55,15 +56,15 @@ app.post("/login", async (req, res) => {
                 res.send({msg : "Login success",token : token})
             }
             else{
-                res.send("incorrect password")
+                res.status(401).send("incorrect password")
             }
         });
     }
     else{
-        res.send("User not found")
+        res.status(401).send("User not found")
     }
   } catch (e) {
-    res.send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
