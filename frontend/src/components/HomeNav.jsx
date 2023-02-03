@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HomeNav = () => {
   return (
     <Box boxShadow={"md"} pb={2}>
-      <Flex justifyContent={"space-between"} ml={100} mr={100}>
+      <Flex justifyContent={"space-between"} ml={{base : 10,md:10,lg:100}} mr={{base : 10,md:10,lg:100}}>
         <Box>
           <Image
             width={"50px"}

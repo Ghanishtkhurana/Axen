@@ -22,42 +22,45 @@ import React from "react";
 import { FcSearch } from "react-icons/fc";
 import { HiShoppingCart } from "react-icons/hi";
 import { BsList } from "react-icons/bs";
-import { TbTestPipe } from "react-icons/tb";
-import { TbFirstAidKit } from "react-icons/tb";
-import { RiVirusLine } from "react-icons/ri";
-import { TbPlant2 } from "react-icons/tb";
+import { GiWashingMachine } from "react-icons/gi";
+import { FaMobileAlt } from "react-icons/fa";
+import { GiClothes } from "react-icons/gi";
+import { FiMonitor } from "react-icons/fi";
 import { RiHandHeartLine } from "react-icons/ri";
+import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/auth/auth.action";
 
 const Sec = [
   {
     id: 1,
-    txt: "LAB TESTS",
-    links: "",
-    icon: TbTestPipe,
+    txt: "Grocery",
+    links: "/grocery",
+    icon: GiWashingMachine,
   },
   {
     id: 2,
-    txt: "CONSULT DOCTORS",
-    links: "",
-    icon: TbFirstAidKit,
+    txt: "Mobile",
+    links: "/mobile",
+    icon: FaMobileAlt,
   },
   {
     id: 3,
-    txt: "COVID-19",
-    links: "",
-    icon: RiVirusLine,
+    txt: "Fashion",
+    links: "/fashion",
+    icon: GiClothes,
   },
   {
     id: 4,
-    txt: "AYURVEDA",
-    links: "",
-    icon: TbPlant2,
+    txt: "Electronics",
+    links: "/moniter",
+    icon: FiMonitor,
   },
   {
     id: 5,
-    txt: "CARE PLAN",
-    links: "",
+    txt: "Home",
+    links: "/homeapp",
     icon: RiHandHeartLine,
   },
 ];
@@ -68,20 +71,31 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
+  const { isAuth } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
+  const handleTheLogout = () => {
+    dispatch(logout());
+  };
   return (
     <Box>
       {isLargerThan1280 ? (
         //   Laptop
-        <Box zIndex={3} bgColor={"purple.600"} position={"fixed"} width={"100%"}> 
+        <Box
+          zIndex={3}
+          bgColor={"purple.600"}
+          position={"fixed"}
+          width={"100%"}
+        >
           <Flex p={1} justifyContent={"space-between"} mr={10} ml={10}>
             {/* Box 1 */}
             <Flex gap={100}>
               <Box pl={"20px"}>
                 <Link to={"/"}>
-                <Image
-                  width={{ base: "50px", md: "80px", lg: "80px" }}
-                  src="https://i.postimg.cc/90Zh1SDT/Axen.png"
-                />
+                  <Image
+                    width={{ base: "50px", md: "80px", lg: "80px" }}
+                    src="https://i.postimg.cc/90Zh1SDT/Axen.png"
+                  />
                 </Link>
               </Box>
 
@@ -108,22 +122,27 @@ const Navbar = () => {
             </Flex>
             {/* Box 3  */}
             <Box>
-              <Flex  gap={"10px"} pr={"20px"}>
-                <Link to={"/login"}>
+              <Flex gap={"10px"} pr={"20px"}>
                 <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
-                  <Text fontSize={"13px"}>Login</Text>
+                  <Link to={"/login"}>
+                    {!isAuth && <Text fontSize={"13px"}>Login</Text>}
+                  </Link>
+                  {isAuth && (
+                    <Text onClick={handleTheLogout} fontSize={"13px"}>
+                      Logout
+                    </Text>
+                  )}
                 </Button>
-                </Link>
                 <Link to={"/signin"}>
-                <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
-                  <Text fontSize={"13px"}>Sign In</Text>
-                </Button>
+                  <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+                    <Text fontSize={"13px"}>Sign In</Text>
+                  </Button>
                 </Link>
-                <Link to={"/cart"} >
-                <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
-                  <Icon as={HiShoppingCart} />
-                  <Text fontSize={"13px"}>Cart</Text>
-                </Button>
+                <Link to={"/cart"}>
+                  <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+                    <Icon as={HiShoppingCart} />
+                    <Text fontSize={"13px"}>Cart</Text>
+                  </Button>
                 </Link>
               </Flex>
             </Box>
@@ -131,7 +150,7 @@ const Navbar = () => {
         </Box>
       ) : (
         //   Mobile
-        <Box bgColor={"purple.600"}>
+        <Box position={"fixed"} width={"100%"} bgColor={"purple.600"}>
           <Flex justifyContent={"space-between"}>
             {/* box 1  */}
             <Flex>
@@ -144,13 +163,15 @@ const Navbar = () => {
                   h={6}
                 />
               </Box>
-              <Box>
-                <Image
-                mt={1}
-                  width={"80px"}
-                  src="https://i.postimg.cc/90Zh1SDT/Axen.png"
-                />
-              </Box>
+              <Link to={"/"}>
+                <Box>
+                  <Image
+                    mt={1}
+                    width={"80px"}
+                    src="https://i.postimg.cc/90Zh1SDT/Axen.png"
+                  />
+                </Box>
+              </Link>
             </Flex>
             {/* Box 2 */}
             <Flex>
@@ -199,7 +220,11 @@ const Navbar = () => {
                           </Box>
                         </Box>
                         <Box>
-                          <Image mt={"-15px"} width={"100px"} src="https://i.postimg.cc/FsBp8Ffv/garfield-hello.gif" />
+                          <Image
+                            mt={"-15px"}
+                            width={"100px"}
+                            src="https://i.postimg.cc/FsBp8Ffv/garfield-hello.gif"
+                          />
                         </Box>
                       </Flex>
                     </Flex>
@@ -207,8 +232,63 @@ const Navbar = () => {
 
                   <DrawerBody>
                     {/* Body  */}
+                    <Flex
+                      flexDirection={"column"}
+                      gap={8}
+                      borderBottom={"2px"}
+                      pb={10}
+                      borderColor={"gray.300"}
+                    >
+                      {Sec.map((post) => (
+                        <Link to={post.links} key={post.id}>
+                          <Flex flexDirection={"row"} gap={6}>
+                            <Icon as={post.icon} w={6} h={6} />
+                            <Text fontSize={"18px"}>{post.txt}</Text>
+                          </Flex>
+                        </Link>
+                      ))}
+                    </Flex>
+                    <Flex mt={5} alignItems={"end"}>
+                      <Button
+                        m={1}
+                        size="md"
+                        _hover={{}}
+                        bgColor={"purple.600"}
+                      >
+                        <Text color={"white"} fontSize={"13px"}>
+                          Sign-In
+                        </Text>
+                      </Button>
+                      <Button
+                        m={1}
+                        size="md"
+                        _hover={{}}
+                        bgColor={"purple.600"}
+                      >
+                        <Text color={"white"} fontSize={"13px"}>
+                          Login
+                        </Text>
+                      </Button>
+                      <Button
+                        m={1}
+                        size="md"
+                        _hover={{}}
+                        bgColor={"purple.600"}
+                      >
+                        <Text color={"white"} fontSize={"13px"}>
+                          Cart
+                        </Text>
+                      </Button>
+                      <Button
+                        m={1}
+                        size="md"
+                        _hover={{}}
+                        bgColor={"purple.600"}
+                      >
+                        <Icon color={"white"} as={ImCross} />
+                      </Button>
+                    </Flex>
                   </DrawerBody>
-
                 </DrawerContent>
               </Drawer>
             </Flex>

@@ -5,7 +5,7 @@ import { RxStarFilled } from "react-icons/rx";
 
 const Filter = () => {
   return (
-    <Box border={"1px solid black"} width={"17%"} p={2}>
+    <Box bgColor={"rgb(267,260,262)"} boxShadow={"base"} width={"17%"} p={2}>
       <Box borderBottom={"1px"} color={"gray.300"} pt={1} pb={2}>
         <Text
           fontSize={"16px"}

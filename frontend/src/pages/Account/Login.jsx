@@ -17,10 +17,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from 'react'
+import { useEffect } from "react";
 import { useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import {useSelector,useDispatch} from "react-redux"
+import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/auth/auth.action";
 
 const initState = {
@@ -34,22 +36,29 @@ const Login = () => {
   const [formstate,setFormstate] = useState(initState)
   const {isAuth,token,message,status} =useSelector((store)=>store.auth)
   const dispatch = useDispatch()
-  console.log("Message =>",message)
-  console.log("status =>",status)
+  const navigate = useNavigate()
+  // console.log("Message =>",message)
+  // console.log("status =>",status)
+  // console.log("isAuth =>",isAuth)
   const toast = useToast()
 
+  useEffect(()=>{
+    if(isAuth){
+      navigate("/")
+    }
+  },[isAuth])
 
   const handleTheChange = (e)=>{
     setFormstate({...formstate,[e.target.name] : e.target.value})
   }
   const handleTheSubmit = ()=>{
-    console.log(formstate)
+    // console.log(formstate)
     dispatch(login(formstate))
     toast({
       position : "top" ,
       title: `${message}`,
       status: `${status}`,
-      duration: 9000,
+      duration: 1700,
       isClosable: true,
     })
   }

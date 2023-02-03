@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   InputRightElement,
   InputGroup,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
@@ -21,6 +22,7 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import {useSelector,useDispatch} from "react-redux"
 import { register } from "../../redux/auth/auth.action";
+import {useNavigate} from "react-router-dom"
 
 const initState = {
   username: "",
@@ -34,7 +36,9 @@ const SignIn = () => {
   const [formstate, setFormstate] = useState(initState);
   const {isAuth,token} = useSelector((store)=>store.auth)
   const dispatch = useDispatch()
-  console.log(isAuth)
+  const navigate = useNavigate()
+  const toast = useToast()
+  // console.log(isAuth)
 
   const handleTheChange = (e) => {
     setFormstate({...formstate,[e.target.name] : e.target.value})
@@ -42,7 +46,27 @@ const SignIn = () => {
   const handleTheSubmit = () => {
     // console.log("hi")
     // console.log(formstate)
-    dispatch(register(formstate))
+    if(formstate.email && formstate.password && formstate.username)
+    {
+      dispatch(register(formstate))
+      toast({
+        title: 'Sign up success',
+        position : "top" ,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+      navigate("/login")
+    }
+    else{
+      toast({
+        title: 'Please Fill The Required Fields',
+        position : "top" ,
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
   };
   return (
     <Flex

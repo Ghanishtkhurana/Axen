@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom'
 import Login from './Account/Login'
 import SignIn from './Account/SignIn'
 import Cart from './Cart'
-import Home from './Home'
+import Home from './Home/Home'
 import Mobile from './Mobile/Mobile'
-import SinglePage from './SinglePage'
+import SinglePage from './SingleProduct/SinglePage'
 
 const Allroutes = () => {
   return (
@@ -14,7 +14,7 @@ const Allroutes = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/signin' element={<SignIn />} />
       <Route path='/cart' element={<Cart />} />
-      <Route path='/singlepage' element={<SinglePage />} />
+      <Route path='/singlepage/:id' element={<SinglePage />} />
       <Route path='/mobile' element={<Mobile />} />
     </Routes>
   )
