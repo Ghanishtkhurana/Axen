@@ -9,23 +9,25 @@ import {site} from "../../components/backend"
 import axios from "axios";
 
 
-const postCart = async({data,token})=>{
-    console.log("postcart",token)
-    // const res = await axios.post(`${site}/cart`,data,{
-    //   headers : {
-    //     "Content-Type" : "application/json",
-    //     "Authorization" : token
-    //   }
-    // })
-    // console.log(res.data)
+const postCart = async(data)=>{
+    let toki = localStorage.getItem("token")
+    // console.log("postcart",toki)
+    // console.log("postcart data",data)
+    const res = await axios.post(`${site}/carts`,data,{
+      headers : {
+        "Content-Type" : "application/json",
+        "Authorization" : toki
+      }
+    })
+    console.log(res.data)
   }
 
 const LaptopScreen = ({ data }) => {
   const {isAuth,token} =  useSelector((store)=>store.auth)
   const toast = useToast()
 
-  console.log(isAuth)
-  console.log("data=>", data);
+//   console.log(isAuth)
+//   console.log("data=>", data);
 
   const handleTheCart=(data)=>{
     if(isAuth == false)
@@ -39,7 +41,7 @@ const LaptopScreen = ({ data }) => {
           }) 
     }
     else{
-        postCart({data,token})
+        postCart(data)
         toast({
             position : "top",
             title: `Product is add in your cart`,
@@ -240,7 +242,7 @@ const LaptopScreen = ({ data }) => {
               </Box>
               {/* Button  */}
               <Flex mt={10} gap={3}>
-                <Button onClick={handleTheCart} _hover={{}} w={"150px"} bg={"none"} bgColor={"rgb(255,159,0)"}>
+                <Button onClick={()=>handleTheCart(data)} _hover={{}} w={"150px"} bg={"none"} bgColor={"rgb(255,159,0)"}>
                     <Flex gap={3} mt={"1px"}  >
                         <Icon m={"1px"} h={4} w={4} color={"white"} as={HiShoppingCart}/>
                         <Text fontWeight={500} color={"white"} fontSize={"13px"}>ADD TO CART</Text>

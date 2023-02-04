@@ -1,1 +1,1 @@
-export const site = "http://localhost:8080"
+export const site = "https://adventurous-wasp-scrubs.cyclic.app"

@@ -2,7 +2,7 @@ import { ERRORMSG, LOGIN, LOGOUT, SIGNIN } from "./auth.type";
 let token = localStorage.getItem("token");
 
 const initState = {
-  isAuth: false,
+  isAuth: token ? true : false,
   token: !!token,
   // message: "Enter details",
   // status: "warning",

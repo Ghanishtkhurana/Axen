@@ -3,13 +3,13 @@ import {ERRORMSG, LOGIN, LOGOUT, } from "./auth.type"
 
 export const register = (creeds) => async(dispatch)=>{
     console.log("authAction",creeds)
-    const res = await axios.post("http://localhost:8080/users/signin",creeds)
+    const res = await axios.post("https://adventurous-wasp-scrubs.cyclic.app/users/signin",creeds)
     console.log(res)
 }
 
 export const login = (creeds) =>async(dispatch)=>{
     try{
-        const res = await axios.post("http://localhost:8080/users/login",creeds)
+        const res = await axios.post("https://adventurous-wasp-scrubs.cyclic.app/users/login",creeds)
         return dispatch({type : LOGIN ,payload : res.data})
     }
     catch(err){

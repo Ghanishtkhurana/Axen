@@ -15,7 +15,7 @@ const cartSchema = new mongoose.Schema({
     off : {type : String ,required : true},
     category : {type : String ,required : true},
     brand : {type : String ,required : true},
-    quantity : {type : Number , required : true , default : 1},
+    quantity : {type : Number , required : true , default : 1,min : 1},
     userId : {type : String , required : true }
 })
 

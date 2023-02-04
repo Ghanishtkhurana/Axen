@@ -18,7 +18,7 @@ import {
   DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FcSearch } from "react-icons/fc";
 import { HiShoppingCart } from "react-icons/hi";
 import { BsList } from "react-icons/bs";
@@ -31,6 +31,8 @@ import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/auth/auth.action";
+import { site } from "./backend";
+import axios from "axios";
 
 const Sec = [
   {
@@ -65,17 +67,26 @@ const Sec = [
   },
 ];
 
+
+
 const Navbar = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth } = useSelector((store) => store.auth);
+  const { isAuth,token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
+  console.log(isAuth)
+
+  useEffect(()=>{
+  },[])
+
+  // console.log(data.length)
   const handleTheLogout = () => {
     dispatch(logout());
+    console.log("logout")
   };
   return (
     <Box>
@@ -141,7 +152,7 @@ const Navbar = () => {
                 <Link to={"/cart"}>
                   <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
                     <Icon as={HiShoppingCart} />
-                    <Text fontSize={"13px"}>Cart</Text>
+                    <Text fontSize={"13px"}>Cart </Text>
                   </Button>
                 </Link>
               </Flex>

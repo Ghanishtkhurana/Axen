@@ -16,63 +16,53 @@ import {
   InputGroup,
   useToast,
 } from "@chakra-ui/react";
-import React from 'react'
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
-import {useSelector,useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/auth/auth.action";
 
 const initState = {
-  email : "" ,
-  password : ""
-}
+  email: "",
+  password: "",
+};
 const Login = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const [msg,setMsg] = useState("")
-  const [formstate,setFormstate] = useState(initState)
-  const {isAuth,token,message,status} =useSelector((store)=>store.auth)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [msg, setMsg] = useState("");
+  const [formstate, setFormstate] = useState(initState);
+  const { isAuth, token, message, status } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log("Message =>",message)
   // console.log("status =>",status)
-  console.log("isAuth =>",isAuth)
-  const toast = useToast()
+  console.log("isAuth =>", isAuth);
+  const toast = useToast();
 
-  useEffect(()=>{
-    if(isAuth){
+  useEffect(() => {
+    if (isAuth) {
       toast({
-        position : "top" ,
+        position: "top",
         title: `Login success`,
         // status: `${status}`,
         status: "success",
         duration: 1700,
         isClosable: true,
-      })
-      navigate("/")
+      });
+      navigate("/");
     }
-  },[isAuth])
+  }, [isAuth]);
 
-  const handleTheChange = (e)=>{
-    setFormstate({...formstate,[e.target.name] : e.target.value})
-  }
-  const handleTheSubmit = ()=>{
-    // console.log(formstate)
-    dispatch(login(formstate))
-    if(!isAuth)
-    {
-      toast({
-        position : "top" ,
-        title: `Something went wrong please try once more`  ,
-        status: `warning`,
-        duration: 1700,
-        isClosable: true,
-      })
-    }
-  }
+  const handleTheChange = (e) => {
+    setFormstate({ ...formstate, [e.target.name]: e.target.value });
+  };
+  const handleTheSubmit = ({isAuth}) => {
+    console.log(formstate)
+    dispatch(login(formstate));
+  };
   return (
     <Flex
       minH={"100vh"}
@@ -96,20 +86,26 @@ const Login = () => {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input name='email' onChange={handleTheChange} type="email" />
+              <Input name="email" onChange={handleTheChange} type="email" />
             </FormControl>
             {/* Password  */}
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup size="md">
                 <Input
-                 name='password' onChange={handleTheChange}
+                  name="password"
+                  onChange={handleTheChange}
                   pr="4.5rem"
                   type={show ? "text" : "password"}
                   placeholder="Enter password"
                 />
                 <InputRightElement>
-                  <Button _hover={{}} bg={"none"} size="sm" onClick={handleClick}>
+                  <Button
+                    _hover={{}}
+                    bg={"none"}
+                    size="sm"
+                    onClick={handleClick}
+                  >
                     {show ? (
                       <Icon color={"rgb(107,70,193)"} as={BsFillEyeSlashFill} />
                     ) : (
@@ -144,7 +140,7 @@ const Login = () => {
         </Box>
       </Stack>
     </Flex>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
