@@ -4,7 +4,6 @@ import {
   Image,
   Text,
   Icon,
-  Center,
   Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -38,7 +37,6 @@ const MobileProduct = () => {
   return (
     <Box
       width={"82%"}
-      h={"500px"}
       bgColor={"rgb(267,260,262)"}
       boxShadow={"base"}
     >
@@ -59,10 +57,10 @@ const MobileProduct = () => {
       )}
       {data &&
         data.map((post, i) => (
-          <Link to={`/singlepage/${post._id}`}>
+          <Link key={i} to={`/singlepage/${post._id}`}>
             <Flex
               justifyContent={"space-between"}
-              key={i}
+              
               border={"1px"}
               borderColor={"gray.200"}
               p={6}
@@ -254,6 +252,7 @@ const MobileProduct = () => {
             </Flex>
           </Link>
         ))}
+        
     </Box>
   );
 };

@@ -12,4 +12,16 @@ app.get("/",async(req,res)=>{
     }
 })
 
+app.get("/:id",async(req,res)=>{
+    try{
+        const {id} = req.params
+        console.log(id)
+        const product = await Product.findById({_id : id})
+        res.send(product)
+    }
+    catch(e){
+        res.send(e.message)
+    }
+})
+
 module.exports = app

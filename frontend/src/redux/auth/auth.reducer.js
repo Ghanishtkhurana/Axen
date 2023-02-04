@@ -4,8 +4,8 @@ let token = localStorage.getItem("token");
 const initState = {
   isAuth: false,
   token: !!token,
-  message: "Enter details",
-  status: "warning",
+  // message: "Enter details",
+  // status: "warning",
   signMsg: "",
 };
 
@@ -23,13 +23,13 @@ const authReducer = (state = initState, action) => {
     case ERRORMSG:
       return {
         ...state,
-        message: action.payload.data,
+        // message: action.payload.data,
         status: "error",
       };
     case SIGNIN:
       return {
         ...state,
-        signMsg: action.payload,
+        // signMsg: action.payload,
       };
     case LOGOUT: {
       localStorage.removeItem("token");

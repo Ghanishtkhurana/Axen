@@ -39,11 +39,19 @@ const Login = () => {
   const navigate = useNavigate()
   // console.log("Message =>",message)
   // console.log("status =>",status)
-  // console.log("isAuth =>",isAuth)
+  console.log("isAuth =>",isAuth)
   const toast = useToast()
 
   useEffect(()=>{
     if(isAuth){
+      toast({
+        position : "top" ,
+        title: `Login success`,
+        // status: `${status}`,
+        status: "success",
+        duration: 1700,
+        isClosable: true,
+      })
       navigate("/")
     }
   },[isAuth])
@@ -54,13 +62,16 @@ const Login = () => {
   const handleTheSubmit = ()=>{
     // console.log(formstate)
     dispatch(login(formstate))
-    toast({
-      position : "top" ,
-      title: `${message}`,
-      status: `${status}`,
-      duration: 1700,
-      isClosable: true,
-    })
+    if(!isAuth)
+    {
+      toast({
+        position : "top" ,
+        title: `Something went wrong please try once more`  ,
+        status: `warning`,
+        duration: 1700,
+        isClosable: true,
+      })
+    }
   }
   return (
     <Flex
