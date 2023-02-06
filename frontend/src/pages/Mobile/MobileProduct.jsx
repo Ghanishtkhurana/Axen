@@ -82,7 +82,7 @@ const MobileProduct = () => {
                         pl={"3px"}
                         pr={"3px"}
                         borderRadius={3}
-                        bgColor={"green.500"}
+                        bgColor={"green"}
                         gap={1}
                       >
                         <Text
@@ -201,7 +201,7 @@ const MobileProduct = () => {
                   </strike>
                   <Text
                     fontSize={"12px"}
-                    color={"green.500"}
+                    color={"green"}
                     textAlign="left"
                     fontWeight={"500"}
                   >

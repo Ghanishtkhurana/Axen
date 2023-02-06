@@ -17,6 +17,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FcSearch } from "react-icons/fc";
@@ -28,7 +29,7 @@ import { GiClothes } from "react-icons/gi";
 import { FiMonitor } from "react-icons/fi";
 import { RiHandHeartLine } from "react-icons/ri";
 import { ImCross } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/auth/auth.action";
 import { site } from "./backend";
@@ -77,6 +78,8 @@ const Navbar = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
   const { isAuth,token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate= useNavigate()
+  const toast = useToast()
 
   console.log(isAuth)
 
@@ -88,6 +91,22 @@ const Navbar = () => {
     dispatch(logout());
     console.log("logout")
   };
+
+  const GoToCart = ()=>{
+    if(isAuth){
+      navigate("/cart")
+    }
+    else{
+      toast({
+        title: 'Required Login',
+        position : "top",
+        status: 'warning',
+        duration: 1500,
+        isClosable: true,
+      })
+    }
+    console.log("cart")
+  }
   return (
     <Box>
       {isLargerThan1280 ? (
@@ -149,12 +168,10 @@ const Navbar = () => {
                     <Text fontSize={"13px"}>Sign In</Text>
                   </Button>
                 </Link>
-                <Link to={"/cart"}>
-                  <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+                  <Button onClick={GoToCart} size={"sm"} bg={"none"} _hover={{}} color={"white"}>
                     <Icon as={HiShoppingCart} />
                     <Text fontSize={"13px"}>Cart </Text>
                   </Button>
-                </Link>
               </Flex>
             </Box>
           </Flex>
@@ -186,12 +203,15 @@ const Navbar = () => {
             </Flex>
             {/* Box 2 */}
             <Flex>
+              <Link to={"/login"}>
               <Button size={"md"} bg={"none"} _hover={{}} color={"white"}>
                 <Text>Login</Text>
               </Button>
+              </Link>
               {/* Drawer  */}
               <Button
                 size={"md"}
+                onClick={GoToCart}
                 bg={"none"}
                 mt={"2px"}
                 _hover={{}}
@@ -270,6 +290,7 @@ const Navbar = () => {
                           Sign-In
                         </Text>
                       </Button>
+                      <Link to="/login">
                       <Button
                         m={1}
                         size="md"
@@ -280,7 +301,10 @@ const Navbar = () => {
                           Login
                         </Text>
                       </Button>
+                      </Link>
+                      
                       <Button
+                      onClick={GoToCart}
                         m={1}
                         size="md"
                         _hover={{}}

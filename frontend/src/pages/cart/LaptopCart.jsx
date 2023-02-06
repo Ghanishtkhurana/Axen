@@ -303,7 +303,7 @@ const LaptopCart = () => {
             </Text>
           </Button>
         </Box>
-      </Flex>
+      </Flex> 
     </Box>
   );
 };

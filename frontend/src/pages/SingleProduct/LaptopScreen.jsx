@@ -25,10 +25,7 @@ const postCart = async(data)=>{
 const LaptopScreen = ({ data }) => {
   const {isAuth,token} =  useSelector((store)=>store.auth)
   const toast = useToast()
-
-//   console.log(isAuth)
-//   console.log("data=>", data);
-
+  
   const handleTheCart=(data)=>{
     if(isAuth == false)
     {

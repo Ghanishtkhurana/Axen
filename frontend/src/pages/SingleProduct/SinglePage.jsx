@@ -31,7 +31,7 @@ const SinglePage = () => {
   return (
     <Box pt={10}>
       {loading && <Spinner color='blue.500' w={20} h={20} mt={20} mb={20} />}
-       {!loading && isLargerThan1280 ? <LaptopScreen data={data} /> : <MobileSinglepage />}
+       {!loading && isLargerThan1280 ? <LaptopScreen data={data} /> : <MobileSinglepage data={data} />}
     </Box>
   )
 }
