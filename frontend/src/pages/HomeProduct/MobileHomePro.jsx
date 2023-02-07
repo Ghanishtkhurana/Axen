@@ -14,12 +14,12 @@ import { site } from "../../components/backend";
 import { Link } from "react-router-dom";
 
 const getData = async () => {
-  const res = await axios.get(`${site}/products/mobile`);
+  const res = await axios.get(`${site}/products/home`);
   console.log(res.data);
   return res.data;
 };
 
-const SmallMobile = () => {
+const MobileHomePro = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -51,7 +51,14 @@ const SmallMobile = () => {
       {data &&
         data.map((post, i) => (
           <Link key={i} to={`/singlepage/${post._id}`}>
-            <Flex gap={5} pt={5} pb={5} borderBottom={"1px"} borderColor={"gray.300"} ml={3}>
+            <Flex
+              gap={5}
+              pt={5}
+              pb={5}
+              borderBottom={"1px"}
+              borderColor={"gray.300"}
+              ml={3}
+            >
               {/* Image  */}
               <Box mt={2} width={"30%"}>
                 <Center>
@@ -124,10 +131,9 @@ const SmallMobile = () => {
             </Flex>
           </Link>
         ))}
-      <Box>
-      </Box>
+      <Box></Box>
     </Box>
   );
 };
 
-export default SmallMobile;
+export default MobileHomePro;

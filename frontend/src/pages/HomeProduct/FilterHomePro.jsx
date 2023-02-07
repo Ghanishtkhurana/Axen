@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Box, Flex, Icon, Text, useStatStyles } from "@chakra-ui/react";
+import React from "react";
+import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { FaRegDotCircle } from "react-icons/fa";
 import { RxStarFilled } from "react-icons/rx";
-import { site } from "../../components/backend";
-import axios from "axios";
-import MobileProduct from "./MobileProduct";
 
-// const sortData = async (brand)=>{
-//   const res = await axios.get(`${site}/products/mobile?brand=${brand}`);
-//   console.log(res.data);
-// }
-
-const Filter = ({handle}) => {
-  const [brand,setBrand] = useState("")
-  
-  useEffect(()=>{
-    handle(brand)
-  },[brand])
-  console.log(brand)
-
+const FilterHomePro = () => {
   return (
     <Box bgColor={"rgb(267,260,262)"} boxShadow={"base"} width={"17%"} p={2}>
       <Box borderBottom={"1px"} color={"gray.300"} pt={1} pb={2}>
@@ -130,7 +115,6 @@ const Filter = ({handle}) => {
           Brand
         </Text>
         {/* Option  */}
-        {/* all brand */}
         <Flex
           _hover={{
             color: "rgb(200,136,240)",
@@ -139,29 +123,6 @@ const Filter = ({handle}) => {
           }}
           ml={1}
           gap={1}
-          onClick={()=>setBrand("")}
-        >
-          <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
-          <Text
-            fontWeight={500}
-            fontSize={"11px"}
-            letterSpacing={1}
-            m={1}
-            textAlign={"left"}
-          >
-            All brands
-          </Text>
-        </Flex>
-        {/* Google  */}
-        <Flex
-          _hover={{
-            color: "rgb(200,136,240)",
-            transition: ".3s",
-            cursor: "pointer",
-          }}
-          ml={1}
-          gap={1}
-          onClick={()=>setBrand("google")}
         >
           <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
           <Text
@@ -174,14 +135,12 @@ const Filter = ({handle}) => {
             Google
           </Text>
         </Flex>
-        {/* samsung  */}
         <Flex
           _hover={{
             color: "rgb(200,136,240)",
             transition: ".3s",
             cursor: "pointer",
           }}
-          onClick={()=>setBrand("samsung")}
           ml={1}
           gap={1}
         >
@@ -196,14 +155,12 @@ const Filter = ({handle}) => {
             Samsung
           </Text>
         </Flex>
-        {/* Apple  */}
         <Flex
           _hover={{
             color: "rgb(200,136,240)",
             transition: ".3s",
             cursor: "pointer",
           }}
-          onClick={()=>setBrand("apple")}
           ml={1}
           gap={1}
         >
@@ -218,14 +175,12 @@ const Filter = ({handle}) => {
             Apple
           </Text>
         </Flex>
-        {/* Mi  */}
         <Flex
           _hover={{
             color: "rgb(200,136,240)",
             transition: ".3s",
             cursor: "pointer",
           }}
-          onClick={()=>setBrand("mi")}
           ml={1}
           gap={1}
         >
@@ -240,14 +195,12 @@ const Filter = ({handle}) => {
             Mi
           </Text>
         </Flex>
-        {/* Motorola  */}
         <Flex
           _hover={{
             color: "rgb(200,136,240)",
             transition: ".3s",
             cursor: "pointer",
           }}
-          onClick={()=>setBrand("motorola")}
           ml={1}
           gap={1}
         >
@@ -339,4 +292,4 @@ const Filter = ({handle}) => {
   );
 };
 
-export default Filter;
+export default FilterHomePro;

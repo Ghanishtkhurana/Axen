@@ -56,12 +56,12 @@ const LaptopScreen = ({ data }) => {
         <Flex justifyContent={"center"} mt={5} mb={10} gap={10}>
             {/* Product Image  */}
           <Box>
-            <Image width={"200px"} m={10} src={data.img[0]} />
+            <Image width={"200px"} m={10} src={data && data.img[0]} />
           </Box>
           {/* Product details  */}
           <Box p={5}>
             <Text textAlign={"left"} fontSize={"14px"} fontWeight={"500"}>
-              {data.title}
+              {data && data.title}
             </Text>
             <Box>
               {/* rating  */}
@@ -74,7 +74,7 @@ const LaptopScreen = ({ data }) => {
                   gap={1}
                 >
                   <Text fontSize={"10px"} fontWeight={500} color={"white"}>
-                    {data.rating}
+                    {data && data.rating}
                   </Text>
                   <Icon
                     as={GoStar}
@@ -85,14 +85,14 @@ const LaptopScreen = ({ data }) => {
                   />
                 </Flex>
                 <Text fontSize={"10px"} color={"gray.500"} fontWeight={500}>
-                  {data.reviews}
+                  {data && data.reviews}
                 </Text>
               </Flex>
               {/* Price  */}
               <Flex gap={3}>
                 <Box>
                   <Text fontSize={"20px"} fontWeight={500}>
-                    {data.price}
+                    {data && data.price}
                   </Text>
                 </Box>
                 <Box>
@@ -102,7 +102,7 @@ const LaptopScreen = ({ data }) => {
                     color={"gray.400"}
                     fontWeight={500}
                   >
-                    <strike>{data.strik}</strike>
+                    <strike>{data && data.strik}</strike>
                   </Text>
                 </Box>
                 <Box>
@@ -112,7 +112,7 @@ const LaptopScreen = ({ data }) => {
                     color={"green.500"}
                     fontWeight={500}
                   >
-                    {data.off}
+                    {data && data.off}
                   </Text>
                 </Box>
               </Flex>

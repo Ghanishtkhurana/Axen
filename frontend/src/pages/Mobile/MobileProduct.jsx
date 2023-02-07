@@ -15,22 +15,23 @@ import { GoStar } from "react-icons/go";
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const getData = async () => {
-  const res = await axios.get(`${site}/products`);
+const getData = async (brand) => {
+  const res = await axios.get(`${site}/products/mobile?brand=${brand}`);
   console.log(res.data);
   return res.data;
 };
 
-const MobileProduct = () => {
+const MobileProduct = ({brand}) => {
+  console.log("passed brand =>",brand)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     handleTheFetch();
-  }, []);
+  }, [brand]);
 
   const handleTheFetch = async () => {
     setLoading(true);
-    const append = await getData().then((res) => setData(res));
+    const append = await getData(brand).then((res) => setData(res));
     setLoading(false);
   };
   console.log(data);
@@ -67,12 +68,12 @@ const MobileProduct = () => {
             >
               <Flex gap={10}>
                 {/* Box 1 */}
-                <Box>
+                <Box >
                   <Image m={2} width={"100px"} src={post.img[0]} />
                 </Box>
                 {/* Box 2  */}
-                <Box>
-                  <Text fontSize={"14px"} fontWeight={"500"}>
+                <Box w={"500px"}>
+                  <Text textAlign={"left"} noOfLines={1} fontSize={"14px"} fontWeight={"500"}>
                     {post.title}
                   </Text>
                   <Box>
