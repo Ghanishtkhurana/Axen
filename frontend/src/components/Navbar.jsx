@@ -81,7 +81,6 @@ const Navbar = () => {
   const navigate= useNavigate()
   const toast = useToast()
 
-  console.log(isAuth)
 
   useEffect(()=>{
   },[])

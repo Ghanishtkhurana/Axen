@@ -3,6 +3,7 @@ import React from "react";
 import HomeNav from "../../components/HomeNav";
 import ImageSlider from "../../components/ImageSlider";
 import ImageSliderMob from "../../components/ImageSliderMob";
+import GrocerySlider from "./GrocerySlider";
 
 const Home = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
@@ -13,9 +14,12 @@ const Home = () => {
         <Box pt={10}>
           <HomeNav />
           <ImageSlider />
+          <Box mt={10} mb={10}>
+            <GrocerySlider />
+          </Box>
         </Box>
       ) : (
-        // Mobile 
+        // Mobile
         <Box pt={10}>
           <HomeNav />
           <ImageSliderMob />

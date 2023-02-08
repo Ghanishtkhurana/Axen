@@ -49,13 +49,6 @@ const SignIn = () => {
     if(formstate.email && formstate.password && formstate.username)
     {
       dispatch(register(formstate))
-      toast({
-        title: 'Sign up success',
-        position : "top" ,
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      })
       navigate("/login")
     }
     else{

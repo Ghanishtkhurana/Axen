@@ -34,24 +34,14 @@ const Login = () => {
   const handleClick = () => setShow(!show);
   const [msg, setMsg] = useState("");
   const [formstate, setFormstate] = useState(initState);
-  const { isAuth, token, message, status } = useSelector((store) => store.auth);
+  const { isAuth, token} = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log("Message =>",message)
-  // console.log("status =>",status)
-  console.log("isAuth =>", isAuth);
-  const toast = useToast();
 
+  const toast = useToast();
+console.log("isauth",isAuth)
   useEffect(() => {
     if (isAuth) {
-      toast({
-        position: "top",
-        title: `Login success`,
-        // status: `${status}`,
-        status: "success",
-        duration: 1700,
-        isClosable: true,
-      });
       navigate("/");
     }
   }, [isAuth]);
@@ -59,8 +49,8 @@ const Login = () => {
   const handleTheChange = (e) => {
     setFormstate({ ...formstate, [e.target.name]: e.target.value });
   };
-  const handleTheSubmit = ({isAuth}) => {
-    console.log(formstate)
+  const handleTheSubmit = ({ isAuth }) => {
+    console.log(formstate);
     dispatch(login(formstate));
   };
   return (
