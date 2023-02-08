@@ -62,7 +62,7 @@ console.log("isauth",isAuth)
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Login to your account</Heading>
+          <Heading fontSize={{base : "24px",md:"",lg:"4xl"}}>Login to your account</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
             to enjoy all of our cool features ✌️
           </Text>

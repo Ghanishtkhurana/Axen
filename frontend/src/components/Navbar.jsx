@@ -56,14 +56,14 @@ const Sec = [
   },
   {
     id: 4,
-    txt: "Electronics",
-    links: "/moniter",
+    txt: "Electronics & Appliances",
+    links: "/electronic",
     icon: FiMonitor,
   },
   {
     id: 5,
     txt: "Home",
-    links: "/homeapp",
+    links: "/home",
     icon: RiHandHeartLine,
   },
 ];
@@ -177,7 +177,7 @@ const Navbar = () => {
         </Box>
       ) : (
         //   Mobile
-        <Box position={"fixed"} width={"100%"} bgColor={"purple.600"}>
+        <Box zIndex={3} position={"fixed"} width={"100%"} bgColor={"purple.600"}>
           <Flex justifyContent={"space-between"}>
             {/* box 1  */}
             <Flex>
@@ -208,6 +208,7 @@ const Navbar = () => {
               </Button>
               </Link>
               {/* Drawer  */}
+              <Link to={"/cart"}>
               <Button
                 size={"md"}
                 onClick={GoToCart}
@@ -218,6 +219,7 @@ const Navbar = () => {
               >
                 <Icon as={HiShoppingCart} w={6} h={6} />
               </Button>
+              </Link>
               <Drawer
                 isOpen={isOpen}
                 placement="left"
@@ -279,6 +281,7 @@ const Navbar = () => {
                       ))}
                     </Flex>
                     <Flex mt={5} alignItems={"end"}>
+                      <Link to={"/signin"} >
                       <Button
                         m={1}
                         size="md"
@@ -289,6 +292,7 @@ const Navbar = () => {
                           Sign-In
                         </Text>
                       </Button>
+                      </Link>
                       <Link to="/login">
                       <Button
                         m={1}
@@ -301,7 +305,7 @@ const Navbar = () => {
                         </Text>
                       </Button>
                       </Link>
-                      
+                      <Link to={"/cart"}>
                       <Button
                       onClick={GoToCart}
                         m={1}
@@ -313,6 +317,7 @@ const Navbar = () => {
                           Cart
                         </Text>
                       </Button>
+                      </Link>
                       <Button
                         m={1}
                         size="md"

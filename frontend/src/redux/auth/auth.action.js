@@ -5,9 +5,14 @@ import {ERRORMSG, LOGIN, LOGOUT, } from "./auth.type"
 
 
 export const register = (creeds) => async(dispatch)=>{
-    console.log("authAction",creeds)
+    try{
     const res = await axios.post(`${site}/users/signin`,creeds)
+    alert(res.data)
     console.log(res)
+    }
+    catch(err){
+        alert(err.response.data)
+    }
 }
 
 export const login = (creeds) =>async(dispatch)=>{
