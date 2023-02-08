@@ -15,22 +15,23 @@ import { GoStar } from "react-icons/go";
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const getData = async () => {
-  const res = await axios.get(`${site}/products/grocery`);
+const getData = async ({brand,price}) => {
+  const res = await axios.get(`${site}/products/grocery?brand=${brand}&price=${price}`);
   console.log(res.data);
   return res.data;
 };
 
-const LaptopG = () => {
+const LaptopG = ({brand,price}) => {
+  console.log("price",price)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     handleTheFetch();
-  }, []);
+  }, [brand,price]);
 
   const handleTheFetch = async () => {
     setLoading(true);
-    const append = await getData().then((res) => setData(res));
+    const append = await getData({brand,price}).then((res) => setData(res));
     setLoading(false);
   };
   console.log(data);

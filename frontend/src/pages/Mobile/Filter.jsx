@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Flex, Icon, Text, useStatStyles } from "@chakra-ui/react";
+import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { FaRegDotCircle } from "react-icons/fa";
 import { RxStarFilled } from "react-icons/rx";
-import { site } from "../../components/backend";
-import axios from "axios";
-import MobileProduct from "./MobileProduct";
 
 // const sortData = async (brand)=>{
 //   const res = await axios.get(`${site}/products/mobile?brand=${brand}`);
@@ -13,11 +10,12 @@ import MobileProduct from "./MobileProduct";
 
 const Filter = ({handle}) => {
   const [brand,setBrand] = useState("")
+  const [price,setPrice] = useState("")
   
   useEffect(()=>{
-    handle(brand)
-  },[brand])
-  console.log(brand)
+    handle(brand,price)
+  },[brand,price])
+  console.log(brand,price)
 
   return (
     <Box bgColor={"rgb(267,260,262)"} boxShadow={"base"} width={"17%"} p={2}>
@@ -53,9 +51,26 @@ const Filter = ({handle}) => {
             transition: ".3s",
             cursor: "pointer",
           }}
+          onClick={()=>setPrice("")}
           textAlign={"left"}
         >
-          Under ₹1,OOO
+          All price range
+        </Text>
+        <Text
+          color={"black"}
+          fontWeight={500}
+          fontSize={"11px"}
+          letterSpacing={1}
+          m={1}
+          _hover={{
+            color: "rgb(200,136,240)",
+            transition: ".3s",
+            cursor: "pointer",
+          }}
+          onClick={()=>setPrice("0-20000")}
+          textAlign={"left"}
+        >
+          Under ₹20,OOO
         </Text>
         <Text
           color={"black"}
@@ -69,8 +84,10 @@ const Filter = ({handle}) => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setPrice("20000-40000")}
+
         >
-          ₹1,OOO - ₹5,OOO
+          ₹20,OOO - ₹40,OOO
         </Text>
         <Text
           color={"black"}
@@ -84,8 +101,10 @@ const Filter = ({handle}) => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setPrice("40000-60000")}
+
         >
-          ₹5,OOO - ₹10,OOO
+          ₹40,OOO - ₹60,OOO
         </Text>
         <Text
           color={"black"}
@@ -99,23 +118,10 @@ const Filter = ({handle}) => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setPrice("morethan80000")}
+
         >
-          ₹10,OOO - ₹20,OOO
-        </Text>
-        <Text
-          color={"black"}
-          fontWeight={500}
-          fontSize={"11px"}
-          letterSpacing={1}
-          m={1}
-          _hover={{
-            color: "rgb(200,136,240)",
-            transition: ".3s",
-            cursor: "pointer",
-          }}
-          textAlign={"left"}
-        >
-          Over ₹20,OOO
+          More than 60,000
         </Text>
       </Box>
       {/* Brand  */}

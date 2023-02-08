@@ -14,8 +14,8 @@ app.get("/",async(req,res)=>{
 
 app.get("/mobile",async(req,res)=>{
     try{
-        let {price,brand,rating} = req.query
-        console.log(price,brand,rating)
+        let {price,brand} = req.query
+        // console.log(price,brand,rating)
         let mobileProducts = await Product.find({category : "Mobile"})
         if(price)
         {
@@ -30,7 +30,7 @@ app.get("/mobile",async(req,res)=>{
             else if(price == "40000-60000"){
                 mobileProducts = await Product.find({$and : [{price2 : {$lte : 60000}},{price2 : {$gte : 40000}},{category : "Mobile"}]})
             }
-            else if(price == "morethan80000")
+            else if(price == "morethan60000")
             {
                 mobileProducts = await Product.find({$and : [{price2 : {$gte : 60000}},{category : "Mobile"}]})
             }
@@ -46,7 +46,30 @@ app.get("/mobile",async(req,res)=>{
 })
 app.get("/grocery",async(req,res)=>{
     try{
-        const groceryProducts = await Product.find({category : "Grocery"})
+        let {price,brand} = req.query
+        console.log(price)
+        let groceryProducts = await Product.find({category : "Grocery"})
+        if(price)
+        {
+            if(price == "0-100")
+            {
+                groceryProducts = await Product.find({$and : [{category : "Grocery"},{price2 : {$lte : 100}}]})
+            }
+            else if(price == "100-200")
+            {
+                groceryProducts = await Product.find({$and : [{price2 : {$lte : 200}},{price2 : {$gte : 100}},{category : "Grocery"}]})
+            }
+            else if(price == "200-400"){
+                groceryProducts = await Product.find({$and : [{price2 : {$lte : 400}},{price2 : {$gte : 200}},{category : "Grocery"}]})
+            }
+            else if(price == "400-600")
+            {
+                groceryProducts = await Product.find({$and : [{price2 : {$gte : 400}},{category : "Grocery"}]})
+            }
+        }
+        else if(brand){
+            groceryProducts = await Product.find({$and : [{category : "Grocery"},{brand : brand}]})
+        }
         res.send(groceryProducts)
     }
     catch(e){
@@ -55,7 +78,29 @@ app.get("/grocery",async(req,res)=>{
 })
 app.get("/electronic&appliances",async(req,res)=>{
     try{
-        const electronicProducts = await Product.find({category : "Electronic&Appliances"})
+        let {price,brand} = req.query
+        let electronicProducts = await Product.find({category : "Electronic&Appliances"})
+        if(price)
+        {
+            if(price == "0-4000")
+            {
+                electronicProducts = await Product.find({$and : [{category : "Electronic&Appliances"},{price2 : {$lte : 4000}}]})
+            }
+            else if(price == "4000-30000")
+            {
+                electronicProducts = await Product.find({$and : [{price2 : {$lte : 30000}},{price2 : {$gte : 4000}},{category : "Electronic&Appliances"}]})
+            }
+            else if(price == "30000-50000"){
+                electronicProducts = await Product.find({$and : [{price2 : {$lte : 50000}},{price2 : {$gte : 30000}},{category : "Electronic&Appliances"}]})
+            }
+            else if(price == "morethan50000")
+            {
+                electronicProducts = await Product.find({$and : [{price2 : {$gte : 50000}},{category : "Electronic&Appliances"}]})
+            }
+        }
+        else if(brand){
+            electronicProducts = await Product.find({$and : [{category : "Electronic&Appliances"},{brand : brand}]})
+        }
         res.send(electronicProducts)
     }
     catch(e){
@@ -65,7 +110,22 @@ app.get("/electronic&appliances",async(req,res)=>{
 
 app.get("/home",async(req,res)=>{
     try{
-        const homeProducts = await Product.find({category : "Home"})
+        let {price,brand} = req.query
+        let homeProducts = await Product.find({category : "Home"})
+        if(price)
+        {
+            if(price == "0-500")
+            {
+                homeProducts = await Product.find({$and : [{category : "Home"},{price2 : {$lte : 500}}]})
+            }
+            else if(price == "500-1000")
+            {
+                homeProducts = await Product.find({$and : [{price2 : {$lte : 1000}},{price2 : {$gte : 500}},{category : "Home"}]})
+            }
+        }
+        else if(brand){
+            homeProducts = await Product.find({$and : [{category : "Home"},{brand : brand}]})
+        }
         res.send(homeProducts)
     }
     catch(e){

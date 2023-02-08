@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { FaRegDotCircle } from "react-icons/fa";
 import { RxStarFilled } from "react-icons/rx";
 
-const FilterElectronic = () => {
+const FilterElectronic = ({handle}) => {
+  const [sortPrice,setSortPrice] = useState("")
+  const [sortCategory,setSortCategory] = useState("")
+  useEffect(()=>{
+    handle(sortCategory,sortPrice)
+  },[sortCategory,sortPrice])
   return (
     <Box bgColor={"rgb(267,260,262)"} boxShadow={"base"} width={"17%"} p={2}>
       <Box borderBottom={"1px"} color={"gray.300"} pt={1} pb={2}>
@@ -39,8 +44,9 @@ const FilterElectronic = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("")}
         >
-          Under ₹1,OOO
+          All price Range
         </Text>
         <Text
           color={"black"}
@@ -54,8 +60,25 @@ const FilterElectronic = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("0-4000")}
         >
-          ₹1,OOO - ₹5,OOO
+          ₹0 - ₹4,OOO
+        </Text>
+        <Text
+          color={"black"}
+          fontWeight={500}
+          fontSize={"11px"}
+          letterSpacing={1}
+          m={1}
+          _hover={{
+            color: "rgb(200,136,240)",
+            transition: ".3s",
+            cursor: "pointer",
+          }}
+          onClick={()=>setSortPrice("4000-30000")}
+          textAlign={"left"}
+        >
+          ₹4,OOO - ₹30,000
         </Text>
         <Text
           color={"black"}
@@ -69,8 +92,9 @@ const FilterElectronic = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("30000-50000")}
         >
-          ₹5,OOO - ₹10,OOO
+          ₹30,OOO - ₹50,OOO
         </Text>
         <Text
           color={"black"}
@@ -84,23 +108,9 @@ const FilterElectronic = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("morethan50000")}
         >
-          ₹10,OOO - ₹20,OOO
-        </Text>
-        <Text
-          color={"black"}
-          fontWeight={500}
-          fontSize={"11px"}
-          letterSpacing={1}
-          m={1}
-          _hover={{
-            color: "rgb(200,136,240)",
-            transition: ".3s",
-            cursor: "pointer",
-          }}
-          textAlign={"left"}
-        >
-          Over ₹20,OOO
+          Over ₹50,OOO
         </Text>
       </Box>
       {/* Brand  */}
@@ -112,7 +122,7 @@ const FilterElectronic = () => {
           color={"black"}
           fontWeight={500}
         >
-          Brand
+          Category
         </Text>
         {/* Option  */}
         <Flex
@@ -131,8 +141,9 @@ const FilterElectronic = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+          onClick={()=>setSortCategory("")}
           >
-            Google
+            All category
           </Text>
         </Flex>
         <Flex
@@ -151,8 +162,10 @@ const FilterElectronic = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+          onClick={()=>setSortCategory("Android TV")}
+
           >
-            Samsung
+            Android TV
           </Text>
         </Flex>
         <Flex
@@ -171,8 +184,9 @@ const FilterElectronic = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+          onClick={()=>setSortCategory("Washing Machine")}
           >
-            Apple
+            Washing Machine
           </Text>
         </Flex>
         <Flex
@@ -191,8 +205,9 @@ const FilterElectronic = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+          onClick={()=>setSortCategory("Kitchen Appliances")}
           >
-            Mi
+            Kitchen Appliances
           </Text>
         </Flex>
         <Flex
@@ -211,8 +226,9 @@ const FilterElectronic = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+          onClick={()=>setSortCategory("Iron")}
           >
-            Motorola
+            Iron
           </Text>
         </Flex>
       </Box>

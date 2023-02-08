@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { FaRegDotCircle } from "react-icons/fa";
 import { RxStarFilled } from "react-icons/rx";
 
-const FilterGrocery = () => {
+const FilterGrocery = ({handle}) => {
+  const [sortPrice,setSortPrice] = useState("")
+  const [sortBrand,setSortBrand] = useState("")
+
+  useEffect(()=>{
+    handle(sortBrand,sortPrice)
+  },[sortPrice,sortBrand])
   return (
     <Box bgColor={"rgb(267,260,262)"} boxShadow={"base"} width={"17%"} p={2}>
       <Box borderBottom={"1px"} color={"gray.300"} pt={1} pb={2}>
@@ -39,8 +45,9 @@ const FilterGrocery = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("")}
         >
-          Under ₹1,OOO
+          All price range
         </Text>
         <Text
           color={"black"}
@@ -54,8 +61,10 @@ const FilterGrocery = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("0-100")}
+
         >
-          ₹1,OOO - ₹5,OOO
+          ₹0 - ₹100
         </Text>
         <Text
           color={"black"}
@@ -69,8 +78,10 @@ const FilterGrocery = () => {
             cursor: "pointer",
           }}
           textAlign={"left"}
+          onClick={()=>setSortPrice("100-200")}
+
         >
-          ₹5,OOO - ₹10,OOO
+          ₹1OO - ₹2OO
         </Text>
         <Text
           color={"black"}
@@ -83,9 +94,10 @@ const FilterGrocery = () => {
             transition: ".3s",
             cursor: "pointer",
           }}
+          onClick={()=>setSortPrice("200-400")}
           textAlign={"left"}
         >
-          ₹10,OOO - ₹20,OOO
+          ₹2OO - ₹4OO
         </Text>
         <Text
           color={"black"}
@@ -98,9 +110,10 @@ const FilterGrocery = () => {
             transition: ".3s",
             cursor: "pointer",
           }}
+          onClick={()=>setSortPrice("400-600")}
           textAlign={"left"}
         >
-          Over ₹20,OOO
+          ₹4OO - ₹6OO
         </Text>
       </Box>
       {/* Brand  */}
@@ -112,7 +125,7 @@ const FilterGrocery = () => {
           color={"black"}
           fontWeight={500}
         >
-          Brand
+          Category
         </Text>
         {/* Option  */}
         <Flex
@@ -131,8 +144,9 @@ const FilterGrocery = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+            onClick={()=>setSortBrand("")}
           >
-            Google
+            All Category
           </Text>
         </Flex>
         <Flex
@@ -151,8 +165,9 @@ const FilterGrocery = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+            onClick={()=>setSortBrand("Washing Bars")}
           >
-            Samsung
+            Washing Bars
           </Text>
         </Flex>
         <Flex
@@ -171,8 +186,9 @@ const FilterGrocery = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+            onClick={()=>setSortBrand("Detergents")}
           >
-            Apple
+            Detergents
           </Text>
         </Flex>
         <Flex
@@ -191,28 +207,10 @@ const FilterGrocery = () => {
             letterSpacing={1}
             m={1}
             textAlign={"left"}
+            onClick={()=>setSortBrand("Pakage food")}
+
           >
-            Mi
-          </Text>
-        </Flex>
-        <Flex
-          _hover={{
-            color: "rgb(200,136,240)",
-            transition: ".3s",
-            cursor: "pointer",
-          }}
-          ml={1}
-          gap={1}
-        >
-          <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
-          <Text
-            fontWeight={500}
-            fontSize={"11px"}
-            letterSpacing={1}
-            m={1}
-            textAlign={"left"}
-          >
-            Motorola
+            Pakage Food
           </Text>
         </Flex>
       </Box>

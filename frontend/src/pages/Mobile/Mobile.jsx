@@ -8,13 +8,16 @@ import SmallMobile from "./SmallMobile";
 const Mobile = () => {
   const [isLargerThan1280] = useMediaQuery('(min-width: 880px)')
   let [filter,setFilter] = useState("")
+  let [priceFilter,setPriceFilter] = useState("")
 
-  const handle = (argu)=>{
+  const handle = (argu,price)=>{
     console.log("argument",argu)
     setFilter(argu)
+    setPriceFilter(price)
   }
 
-  console.log(filter)
+  console.log("filter",filter)
+  console.log("priceFili",priceFilter)
   return (
     <Box pt={10}>
       {isLargerThan1280 ? <Box>
@@ -23,7 +26,7 @@ const Mobile = () => {
         {/* Filter  */}
           <Filter handle={handle} />
         {/* Products  */}
-        <MobileProduct brand={filter} />
+        <MobileProduct brand={filter} price={priceFilter} />
       </Flex>
       </Box> : <SmallMobile/>}
       
