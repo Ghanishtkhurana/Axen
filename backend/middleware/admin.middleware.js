@@ -10,6 +10,7 @@ const adminMiddleware = (req, res, next) => {
       let decode = jwt.verify(token, "SECRET123");
       console.log(decode);
       if(decode.role === "Admin"){
+        req.body.userId = decode.id 
           next();
       }
       else{
