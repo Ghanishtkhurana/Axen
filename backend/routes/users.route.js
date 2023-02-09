@@ -15,6 +15,35 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/signin/admin", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const exist = await Users.findOne({ email: email });
+    if (exist) {
+      return res.send(
+        "user with this email already exist please choose different email"
+        // exist
+      );
+    } else {
+      bcrypt.hash(password, 5, async (err, hash) => {
+        if (err) {
+          res.send(err);
+        } else {
+          const user = await Users.create({
+            username: username,
+            email: email,
+            password: hash,
+            role : "Admin"
+          });
+          res.status(200).send("Sign up success");
+        }
+      });
+    }
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
 app.post("/signin", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -52,7 +81,7 @@ app.post("/login", async (req, res) => {
     if(user){
         bcrypt.compare(password, user.password, function(err, result) {
             if(result){
-                const token = jwt.sign({id : user._id ,name : user.username},"SECRET123")
+                const token = jwt.sign({id : user._id ,name : user.username ,role : user.role},"SECRET123")
                 res.send({msg : "Login success",token : token})
             }
             else{

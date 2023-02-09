@@ -68,44 +68,39 @@ const Sec = [
   },
 ];
 
-
-
 const Navbar = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth,token } = useSelector((store) => store.auth);
+  const { isAuth, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const navigate= useNavigate()
-  const toast = useToast()
+  const navigate = useNavigate();
+  const toast = useToast();
 
-
-  useEffect(()=>{
-  },[])
+  useEffect(() => {}, []);
 
   // console.log(data.length)
   const handleTheLogout = () => {
     dispatch(logout());
-    console.log("logout")
+    console.log("logout");
   };
 
-  const GoToCart = ()=>{
-    if(isAuth){
-      navigate("/cart")
-    }
-    else{
+  const GoToCart = () => {
+    if (isAuth) {
+      navigate("/cart");
+    } else {
       toast({
-        title: 'Required Login',
-        position : "top",
-        status: 'warning',
+        title: "Required Login",
+        position: "top",
+        status: "warning",
         duration: 1500,
         isClosable: true,
-      })
+      });
     }
-    console.log("cart")
-  }
+    console.log("cart");
+  };
   return (
     <Box>
       {isLargerThan1280 ? (
@@ -167,17 +162,28 @@ const Navbar = () => {
                     <Text fontSize={"13px"}>Sign In</Text>
                   </Button>
                 </Link>
-                  <Button onClick={GoToCart} size={"sm"} bg={"none"} _hover={{}} color={"white"}>
-                    <Icon as={HiShoppingCart} />
-                    <Text fontSize={"13px"}>Cart </Text>
-                  </Button>
+                <Button
+                  onClick={GoToCart}
+                  size={"sm"}
+                  bg={"none"}
+                  _hover={{}}
+                  color={"white"}
+                >
+                  <Icon as={HiShoppingCart} />
+                  <Text fontSize={"13px"}>Cart </Text>
+                </Button>
               </Flex>
             </Box>
           </Flex>
         </Box>
       ) : (
         //   Mobile
-        <Box zIndex={3} position={"fixed"} width={"100%"} bgColor={"purple.600"}>
+        <Box
+          zIndex={3}
+          position={"fixed"}
+          width={"100%"}
+          bgColor={"purple.600"}
+        >
           <Flex justifyContent={"space-between"}>
             {/* box 1  */}
             <Flex>
@@ -203,22 +209,29 @@ const Navbar = () => {
             {/* Box 2 */}
             <Flex>
               <Link to={"/login"}>
-              <Button size={"md"} bg={"none"} _hover={{}} color={"white"}>
-                <Text>Login</Text>
-              </Button>
+                <Button size={"md"} bg={"none"} _hover={{}} color={"white"}>
+                  <Link to={"/login"}>
+                    {!isAuth && <Text fontSize={"13px"}>Login</Text>}
+                  </Link>
+                  {isAuth && (
+                    <Text onClick={handleTheLogout} fontSize={"13px"}>
+                      Logout
+                    </Text>
+                  )}
+                </Button>
               </Link>
               {/* Drawer  */}
               <Link to={"/cart"}>
-              <Button
-                size={"md"}
-                onClick={GoToCart}
-                bg={"none"}
-                mt={"2px"}
-                _hover={{}}
-                color={"white"}
-              >
-                <Icon as={HiShoppingCart} w={6} h={6} />
-              </Button>
+                <Button
+                  size={"md"}
+                  onClick={GoToCart}
+                  bg={"none"}
+                  mt={"2px"}
+                  _hover={{}}
+                  color={"white"}
+                >
+                  <Icon as={HiShoppingCart} w={6} h={6} />
+                </Button>
               </Link>
               <Drawer
                 isOpen={isOpen}
@@ -281,42 +294,47 @@ const Navbar = () => {
                       ))}
                     </Flex>
                     <Flex mt={5} alignItems={"end"}>
-                      <Link to={"/signin"} >
-                      <Button
-                        m={1}
-                        size="md"
-                        _hover={{}}
-                        bgColor={"purple.600"}
-                      >
-                        <Text color={"white"} fontSize={"13px"}>
-                          Sign-In
-                        </Text>
-                      </Button>
+                      <Link to={"/signin"}>
+                        <Button
+                          m={1}
+                          size="md"
+                          _hover={{}}
+                          bgColor={"purple.600"}
+                        >
+                          <Text color={"white"} fontSize={"13px"}>
+                            Sign-In
+                          </Text>
+                        </Button>
                       </Link>
                       <Link to="/login">
-                      <Button
-                        m={1}
-                        size="md"
-                        _hover={{}}
-                        bgColor={"purple.600"}
-                      >
-                        <Text color={"white"} fontSize={"13px"}>
-                          Login
-                        </Text>
-                      </Button>
+                        <Button
+                          m={1}
+                          size="md"
+                          _hover={{}}
+                          bgColor={"purple.600"}
+                        >
+                          <Link to={"/login"}>
+                            {!isAuth && <Text color={"white"} fontSize={"13px"}>Login</Text>}
+                          </Link>
+                          {isAuth && (
+                            <Text color={"white"} onClick={handleTheLogout} fontSize={"13px"}>
+                              Logout
+                            </Text>
+                          )}
+                        </Button>
                       </Link>
                       <Link to={"/cart"}>
-                      <Button
-                      onClick={GoToCart}
-                        m={1}
-                        size="md"
-                        _hover={{}}
-                        bgColor={"purple.600"}
-                      >
-                        <Text color={"white"} fontSize={"13px"}>
-                          Cart
-                        </Text>
-                      </Button>
+                        <Button
+                          onClick={GoToCart}
+                          m={1}
+                          size="md"
+                          _hover={{}}
+                          bgColor={"purple.600"}
+                        >
+                          <Text color={"white"} fontSize={"13px"}>
+                            Cart
+                          </Text>
+                        </Button>
                       </Link>
                       <Button
                         m={1}
