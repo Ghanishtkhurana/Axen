@@ -1,11 +1,22 @@
 const express = require("express");
+const adminMiddleware = require("../middleware/admin.middleware");
 const Product = require("../models/product.model");
 const app = express.Router();
-const deleteMiddleware = require("../middleware/deleteProduct.middleware");
+
+app.use(express.json())
 
 app.get("/", async (req, res) => {
   try {
     const products = await Product.find();
+    res.send(products);
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
+app.post("/addproduct",async (req, res) => {
+  try {
+    const products = await Product.create({...req.body});
     res.send(products);
   } catch (e) {
     res.send(e.message);
@@ -183,7 +194,7 @@ app.get("/:id", async (req, res) => {
   }
 });
 
-app.delete("/:id", deleteMiddleware, async (req, res) => {
+app.delete("/:id", adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     const item = await Product.findByIdAndDelete({ _id: id });

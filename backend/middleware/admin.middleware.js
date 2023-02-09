@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-const deleteProduct = (req, res, next) => {
+const adminMiddleware = (req, res, next) => {
   let token = req.headers.authorization;
-  console.log(token);
+  console.log("token=>",token);
+  console.log("token ?",!!token)
+
   try {
     if (token) {
       let decode = jwt.verify(token, "SECRET123");
@@ -14,9 +16,13 @@ const deleteProduct = (req, res, next) => {
         res.send("You are not Authorized to perform this function")
       }
     }
-  } catch (e) {
+    else{
+      res.send("invalid token")
+    }
+  }
+ catch (e) {
     res.send("No token found please login");
   }
 };
 
-module.exports = deleteProduct;
+module.exports = adminMiddleware;

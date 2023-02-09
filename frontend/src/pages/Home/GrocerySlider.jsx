@@ -27,24 +27,20 @@ const responsive = {
 
 const getData = async () => {
   const res = await axios.get(`${site}/products/electronic&appliances`);
-  console.log(res.data);
   return res.data;
 };
 const getMobileData = async () => {
   const res = await axios.get(`${site}/products/mobile`);
-  console.log(res.data);
   return res.data;
 };
 
 const getGroceryData = async () => {
   const res = await axios.get(`${site}/products/grocery`);
-  console.log(res.data);
   return res.data;
 };
 
 const getHomeData = async () => {
   const res = await axios.get(`${site}/products/home`);
-  console.log(res.data);
   return res.data;
 };
 

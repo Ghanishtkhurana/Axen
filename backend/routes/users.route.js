@@ -2,11 +2,12 @@ const express = require("express");
 const app = express.Router();
 const Users = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const adminMiddleware = require("../middleware/admin.middleware");
 
 app.use(express.json());
 
-app.get("/", async (req, res) => {
+app.get("/admin",adminMiddleware ,async (req, res) => {
   try {
     const users = await Users.find();
     res.send(users);
