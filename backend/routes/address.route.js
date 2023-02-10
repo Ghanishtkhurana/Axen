@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express.Router()
 const adminMiddleware = require("../middleware/admin.middleware")
+const auth = require("../middleware/auth.middleware")
 const Address = require("../models/address.model")
 
 app.use(express.json())
@@ -16,7 +17,7 @@ app.get("/orders",adminMiddleware,async(req,res)=>{
     }
 })
 
-app.post("/post_orders",adminMiddleware,async(req,res)=>{
+app.post("/post_orders",auth,async(req,res)=>{
     try{
         const userOrders = await Address.create({...req.body})
         res.send(userOrders)
@@ -26,7 +27,7 @@ app.post("/post_orders",adminMiddleware,async(req,res)=>{
     }
 })
 
-app.delete("/:id",async(req,res)=>{
+app.delete("/:id",auth,async(req,res)=>{
     try{
         let {id} = req.body
         const userOrders = await Address.findByIdAndDelete({_id : id})

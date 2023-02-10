@@ -42,10 +42,9 @@ app.patch("/:id", async (req, res) => {
   }
 });
 
-app.delete("/:id",async(req,res)=>{
+app.delete("/",async(req,res)=>{
   try{
-    const {id} = req.params
-    const cartItem = await Cart.findByIdAndDelete({_id : id})
+    const cartItem = await Cart.deleteMany({userId : req.body.userId})
     res.send("Item is deleted from your cart")
   }
   catch(e){

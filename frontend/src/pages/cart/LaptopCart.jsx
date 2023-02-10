@@ -1,8 +1,19 @@
-import { Box, Text, Flex, Button, Image, Center, Icon, Toast, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Flex,
+  Button,
+  Image,
+  Center,
+  Icon,
+  useToast,
+  useDisclosure,
+} from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { site } from "../../components/backend";
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
+import LaptopCheckout from "../Checkout/LaptopCheckout";
 
 const getCart = async () => {
   let toki = localStorage.getItem("token");
@@ -58,12 +69,14 @@ const itemDelete = async (id) => {
       Authorization: toki,
     },
   });
-  console.log(res.data)
+  console.log(res.data);
 };
 
 const LaptopCart = () => {
   const [data, setData] = useState([]);
-  const toast = useToast()
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = React.useRef()
 
   useEffect(() => {
     handleTheFetch();
@@ -87,12 +100,14 @@ const LaptopCart = () => {
     handleTheFetch();
   };
 
-  const handleTheCheckout = () => {};
+  const handleTheCheckout = () => {
+    console.log("hi checkout")
+  };
 
-  const handleTheDelete = async(id) => {
-    console.log(id)
-    await itemDelete(id)
-    handleTheFetch()
+  const handleTheDelete = async (id) => {
+    console.log(id);
+    await itemDelete(id);
+    handleTheFetch();
     toast({
       position: "top",
       title: `Item is deleted from your cart`,
@@ -102,10 +117,15 @@ const LaptopCart = () => {
     });
   };
 
-  let total = data.reduce((acc, el) => acc + (el.price2*el.quantity), 0);
+  let total = data.reduce((acc, el) => acc + el.price2 * el.quantity, 0);
+  let paid = data.reduce((acc, el) => acc + el.price2 * el.quantity, 0) + 100
 
   return (
-    <Box pt={10}>
+    <Box pt={2} mb={10}>
+      <Flex mb={2} justifyContent={"center"}>
+        <Image w={"80px"} src="https://i.postimg.cc/VsRDYtym/cart-logo.jpg" />
+        <Image mt={3} w={"250px"} h={"40px"} src="https://i.postimg.cc/pXCJZgQD/shopping-Png.png" />>
+      </Flex>
       <Flex justifyContent={"center"}>
         <Box
           boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
@@ -270,27 +290,28 @@ const LaptopCart = () => {
           >
             <Box>
               <Flex justifyContent="space-between" fontSize={12} p="10px">
-                <Text>Item Total(MRP)</Text>
-                <Text>₹ {total}</Text>
+                <Text fontWeight={500} fontSize={"16px"}>Item Total(MRP)</Text>
+                <Text fontWeight={500} fontSize={"16px"}>₹ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               </Flex>
             </Box>
             <hr></hr>
             <Box>
               <Flex justifyContent="space-between" fontSize={12} p="10px">
-                <Text>Shipping Fee</Text>
-                <Text>₹ 100</Text>
+                <Text fontWeight={500} fontSize={"16px"}>Shipping Fee</Text>
+                <Text fontWeight={500} fontSize={"16px"}>₹ 100</Text>
               </Flex>
             </Box>
             <hr></hr>
             <Box>
               <Flex justifyContent="space-between" fontSize={12} p="10px">
-                <Text>To be paid</Text>
-                <Text>₹ {total + 100}</Text>
+                <Text fontWeight={500} fontSize={"16px"}>To be paid</Text>
+                <Text fontWeight={500} fontSize={"16px"}>₹ {paid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               </Flex>
             </Box>
           </Box>
           <Button
-            onClick={() => handleTheCheckout(data[0].userID)}
+            onClick={onOpen}
+            // onClick={() => handleTheCheckout(data[0].userID)}
             w="100%"
             bgColor={"purple.500"}
             width="400px"
@@ -299,11 +320,14 @@ const LaptopCart = () => {
             _hover={{}}
           >
             <Text fontWeight={500} color={"white"}>
-              PAY NOW
+              Proceed to Buy
             </Text>
           </Button>
         </Box>
-      </Flex> 
+      </Flex>
+      
+       <LaptopCheckout cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      
     </Box>
   );
 };
