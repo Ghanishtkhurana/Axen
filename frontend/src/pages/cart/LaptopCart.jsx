@@ -106,7 +106,7 @@ const LaptopCart = () => {
 
   const handleTheDelete = async (id) => {
     console.log(id);
-    await itemDelete(id);
+    itemDelete(id);
     handleTheFetch();
     toast({
       position: "top",
@@ -118,7 +118,7 @@ const LaptopCart = () => {
   };
 
   let total = data.reduce((acc, el) => acc + el.price2 * el.quantity, 0);
-  let paid = data.reduce((acc, el) => acc + el.price2 * el.quantity, 0) + 100
+  let paid = total === 0 ? 0 : data.reduce((acc, el) => acc + el.price2 * el.quantity, 0) + 100
 
   return (
     <Box pt={2} mb={10}>
@@ -127,6 +127,7 @@ const LaptopCart = () => {
         <Image mt={3} w={"250px"} h={"40px"} src="https://i.postimg.cc/pXCJZgQD/shopping-Png.png" />>
       </Flex>
       <Flex justifyContent={"center"}>
+        {/* Products  */}
         <Box
           boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
           w="700px"
@@ -143,17 +144,17 @@ const LaptopCart = () => {
             </Center>
             {data &&
               data.map((prod, i) => (
-                <Box key={i} borderBottom={"1px"} borderColor={"gray.300"}>
-                  <Flex justifyContent={"space-between"} pr={"20px"}>
+                <Box m={1} key={i} borderBottom={"1px"} borderColor={"gray.300"}>
+                  <Flex justifyContent={"space-between"} >
                     {/* Image Box  */}
-                    <Flex>
-                      <Box p={2} width={"200px"}>
+                    <Flex w={"80%"} justifyContent={"space-between"} gap={1} >
+                      <Box w={"35%"}  p={2}>
                         <Center>
-                          <Image mt={2} src={prod.img[0]} width={"70px"} />
+                          <Image mt={2} src={prod.img[0]} width={"100px"} />
                         </Center>
                       </Box>
                       {/* Desc  */}
-                      <Box mt={2}>
+                      <Box w={"65%"} mt={2}>
                         <Text
                           textAlign={"left"}
                           fontSize={"13px"}
@@ -231,7 +232,7 @@ const LaptopCart = () => {
                       </Box>
                     </Flex>
                     {/* Price box  */}
-                    <Box p={2}>
+                    <Box w={"20%"} p={2}>
                       <Flex gap={3} justifyContent={"center"} fontWeight={500}>
                         <Text>Price</Text>
                         <Text>{prod.price}</Text>
@@ -279,7 +280,7 @@ const LaptopCart = () => {
               ))}
           </Box>
         </Box>
-
+          {/* Price  */}
         <Box>
           <Box
             boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
@@ -326,7 +327,7 @@ const LaptopCart = () => {
         </Box>
       </Flex>
       
-       <LaptopCheckout cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+       <LaptopCheckout handleTheFetch={handleTheFetch} cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       
     </Box>
   );

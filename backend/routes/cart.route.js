@@ -19,6 +19,10 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/checkout",async(req,res)=>{
+  res.send("checkout")
+})
+
 app.post("/", async (req, res) => {
   try {
     const cartItem = await Cart.create({ ...req.body });
@@ -42,14 +46,27 @@ app.patch("/:id", async (req, res) => {
   }
 });
 
-app.delete("/",async(req,res)=>{
+
+app.delete("/checkout",async(req,res)=>{
   try{
-    const cartItem = await Cart.deleteMany({userId : req.body.userId})
+    let token = req.headers.authorization
+    let decode = jwt.verify(token,"SECRET123")
+    console.log(decode)
+    const checkout = await Cart.deleteMany({userId : decode.id  })
+    res.send("Your order is placed")
+  }catch(e){
+    res.send(e.message)
+  }
+})
+
+app.delete("/:id",async(req,res)=>{
+  try{
+    const {id} = req.params
+    const cartItem = await Cart.findByIdAndDelete({_id : id})
     res.send("Item is deleted from your cart")
   }
   catch(e){
     res.send(e.message)
   }
 })
-
 module.exports = app;
