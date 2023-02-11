@@ -66,6 +66,7 @@ const MobileHomeSlider = () => {
     await getHomeData().then((res) => setHomeData(res));
     setLoading(false);
   };
+
   console.log(data);
   return (
     <div>

@@ -19,19 +19,11 @@ export const login = (creeds) =>async(dispatch)=>{
     try{
         const res = await axios.post(`${site}/users/login`,creeds)
         console.log(res)
-        alert(res.data.msg)
         return dispatch({type : LOGIN ,payload : res.data})
     }
     catch(err){
         console.log(err.response.data)
         alert(err.response.data)
-        // toast({
-        //     title: err.response.data,
-        //     status: 'info',
-        //     position : "top",
-        //     duration: 1500,
-        //     isClosable: true,
-        //   })
     }
 }
 

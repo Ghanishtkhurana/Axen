@@ -74,11 +74,11 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth, token } = useSelector((store) => store.auth);
+  const { isAuth, token,name } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-
+  console.log("name",name)
   useEffect(() => {}, []);
 
   // console.log(data.length)
@@ -253,7 +253,7 @@ const Navbar = () => {
                         <Image
                           borderRadius={100}
                           width={"70px"}
-                          src="https://i.pinimg.com/564x/91/29/bd/9129bdad4daea281df7370da96e6e011.jpg"
+                          src="https://i.pinimg.com/564x/ae/b2/04/aeb20479fd71ec4cc1e7a43f889128ed.jpg"
                         />
                       </Box>
                       {/* User details  */}
@@ -261,7 +261,7 @@ const Navbar = () => {
                         <Box>
                           <Box>Hey</Box>
                           <Box>
-                            <Text>UserName</Text>
+                            <Text>{name ? name : ""}</Text>
                           </Box>
                         </Box>
                         <Box>
@@ -341,6 +341,7 @@ const Navbar = () => {
                         size="md"
                         _hover={{}}
                         bgColor={"purple.600"}
+                        onClick={onClose}
                       >
                         <Icon color={"white"} as={ImCross} />
                       </Button>

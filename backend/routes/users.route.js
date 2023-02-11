@@ -83,7 +83,7 @@ app.post("/login", async (req, res) => {
         bcrypt.compare(password, user.password, function(err, result) {
             if(result){
                 const token = jwt.sign({id : user._id ,name : user.username ,role : user.role},"SECRET123")
-                res.send({msg : "Login success",token : token})
+                res.send({msg : "Login success",token : token,name : user.username})
             }
             else{
                 res.status(401).send("incorrect password")
