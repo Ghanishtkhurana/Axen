@@ -74,14 +74,14 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth, token,name,role } = useSelector((store) => store.auth);
+  const { isAuth, token, name, role } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  console.log("name",name)
+  console.log("name", name);
   useEffect(() => {}, []);
 
-  console.log(role)
+  console.log(role);
   const handleTheLogout = () => {
     dispatch(logout());
     console.log("logout");
@@ -102,9 +102,9 @@ const Navbar = () => {
     console.log("cart");
   };
 
-  const handleTheAdmin = ()=>{
-    console.log("welcome admin")
-  }
+  const handleTheAdmin = () => {
+    console.log("welcome admin");
+  };
   return (
     <Box>
       {isLargerThan1280 ? (
@@ -161,13 +161,19 @@ const Navbar = () => {
                     </Text>
                   )}
                 </Button>
-                <Link to={"/signin"}>
-                  <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
-                   { role == "Admin" && <Text onClick={handleTheAdmin} fontSize={"13px"}>Admin</Text> }
-                   { role == "User" && <Text fontSize={"13px"}>User</Text> }
-                   { role == "" && <Text fontSize={"13px"}>Sign-In</Text> }
-                  </Button>
-                </Link>
+                <Button size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+                  <Link to={"/admin"}>
+                    {role == "Admin" && (
+                      <Text onClick={handleTheAdmin} fontSize={"13px"}>
+                        Admin
+                      </Text>
+                    )}
+                  </Link>
+                  {role == "User" && <Text fontSize={"13px"}>User</Text>}
+                  <Link to={"/signin"}>
+                    {role == "" && <Text fontSize={"13px"}>Sign-In</Text>}
+                  </Link>
+                </Button>
                 <Button
                   onClick={GoToCart}
                   size={"sm"}
@@ -320,10 +326,18 @@ const Navbar = () => {
                           bgColor={"purple.600"}
                         >
                           <Link to={"/login"}>
-                            {!isAuth && <Text color={"white"} fontSize={"13px"}>Login</Text>}
+                            {!isAuth && (
+                              <Text color={"white"} fontSize={"13px"}>
+                                Login
+                              </Text>
+                            )}
                           </Link>
                           {isAuth && (
-                            <Text color={"white"} onClick={handleTheLogout} fontSize={"13px"}>
+                            <Text
+                              color={"white"}
+                              onClick={handleTheLogout}
+                              fontSize={"13px"}
+                            >
                               Logout
                             </Text>
                           )}
