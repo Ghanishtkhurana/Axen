@@ -8,8 +8,23 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
+import { site } from "../../components/backend";
 import AdminNav from "./AdminNav";
+
+const addProduct = async (formdata) => {
+  let toki = localStorage.getItem("token");
+  // console.log("addproductData=>",data)
+  const res = await axios.post(`${site}/products/addproduct`, formdata, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: toki,
+    },
+  });
+  const data = res.data;
+  return data;
+};
 
 const initState = {
   title: "",
@@ -34,7 +49,7 @@ const AddProduct = () => {
   const [img2, setImg2] = useState("");
   const [img3, setImg3] = useState("");
   const [img4, setImg4] = useState("");
-  const toast = useToast()
+  const toast = useToast();
   const handleTheChange = (e) => {
     setFormstate({ ...formstate, [e.target.name]: e.target.value });
   };
@@ -54,17 +69,18 @@ const AddProduct = () => {
       img3 &&
       img4
     ) {
-      console.log(formstate);
       console.log({ ...formstate, img: [img1, img2, img3, img4] });
-    }
-    else{
+      addProduct({ ...formstate, img: [img1, img2, img3, img4] })
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+    } else {
       toast({
-        title: 'Please Fill The Required Fields',
-        position : "top" ,
-        status: 'warning',
+        title: "Please Fill The Required Fields",
+        position: "top",
+        status: "warning",
         duration: 2000,
         isClosable: true,
-      })
+      });
     }
   };
   return (

@@ -14,7 +14,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/addproduct",async (req, res) => {
+app.post("/addproduct",adminMiddleware,async (req, res) => {
   try {
     const products = await Product.create({...req.body});
     res.send(products);
