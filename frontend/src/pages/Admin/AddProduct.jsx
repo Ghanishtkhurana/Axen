@@ -71,8 +71,24 @@ const AddProduct = () => {
     ) {
       console.log({ ...formstate, img: [img1, img2, img3, img4] });
       addProduct({ ...formstate, img: [img1, img2, img3, img4] })
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
+        .then((res) =>
+          toast({
+            title: "Product added successfully",
+            position: "top",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          })
+        )
+        .catch((e) =>
+          toast({
+            title: "Product added successfully",
+            position: "top",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          })
+        );
     } else {
       toast({
         title: "Please Fill The Required Fields",

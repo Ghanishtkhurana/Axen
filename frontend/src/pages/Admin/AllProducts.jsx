@@ -10,6 +10,9 @@ import {
   TableCaption,
   TableContainer,
   Text,
+  Center,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -22,49 +25,111 @@ const getAllProducts = async () => {
   return data;
 };
 
+const deleteProduct = async (id) => {
+  let toki = localStorage.getItem("token");
+  console.log("id", id);
+  const res = await axios.delete(`${site}/products/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: toki,
+    },
+  });
+  const data = res.data;
+  return data;
+};
+
 const AllProducts = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     handleTheData();
   }, []);
 
   const handleTheData = async () => {
+    setLoading(true);
     await getAllProducts().then((res) => setData(res));
+    setLoading(false);
+  };
+
+  const handleTheDelete = async (id) => {
+    console.log(id);
+    deleteProduct(id)
+      .then((res) =>
+        toast({
+          title: res,
+          position: "top",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+      )
+      .catch((e) =>
+        toast({
+          title: e,
+          position: "top",
+          status: "warning",
+          duration: 2000,
+          isClosable: true,
+        })
+      );
+      handleTheData()
   };
   console.log("allproducts", data);
   return (
     <Box pt={10}>
       <AdminNav />
       {/* table */}
+      {loading && (
+        <Center mt={20} mb={20}>
+          <Spinner
+            mt={10}
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+          <Text fontWeight={500} color={"rgb(107,70,193)"} mt={10}>
+            Loading...
+          </Text>
+        </Center>
+      )}
       <Box>
         <TableContainer>
           <Table size="sm">
             <Thead>
-              <Tr>
-                <Th>Product ID</Th>
-                <Th>Product Name</Th>
-                <Th>Product Image</Th>
-                <Th>Product category</Th>
-                <Th>Delete</Th>
-              </Tr>
+              {loading == false && (
+                <Tr>
+                  <Th>Product ID</Th>
+                  <Th>Product Name</Th>
+                  <Th>Product Image</Th>
+                  <Th>Product category</Th>
+                  <Th>Delete</Th>
+                </Tr>
+              )}
             </Thead>
             <Tbody>
-              {/* <Tr>
-                <Td>inches</Td>
-                <Td>millimetres (mm)</Td>
-                <Td isNumeric>25.4</Td>
-              </Tr> */}
               {data.length > 0 &&
                 data.map((post, i) => (
                   <Tr>
                     <Td>
-                      <Text width={"180px"} border={"1px solid green"} fontSize={"12px"} fontWeight={"500"}>
+                      <Text
+                        width={"180px"}
+                        fontSize={"12px"}
+                        fontWeight={"500"}
+                      >
                         {post._id}
                       </Text>
                     </Td>
                     <Td>
-                      <Text width={"300px"} overflow={"hidden"} border={"1px solid plum"} fontSize={"12px"} fontWeight={"500"}>
+                      <Text
+                        width={"300px"}
+                        overflow={"hidden"}
+                        fontSize={"12px"}
+                        fontWeight={"500"}
+                      >
                         {post.title}
                       </Text>
                     </Td>
@@ -74,7 +139,13 @@ const AllProducts = () => {
                       </a>
                     </Td>
                     <Td>{post.category}</Td>
-                    <Td>Delete</Td>
+                    <Td
+                      style={{ cursor: "pointer" }}
+                      color={"blue"}
+                      onClick={() => handleTheDelete(post._id)}
+                    >
+                      Delete
+                    </Td>
                   </Tr>
                 ))}
             </Tbody>
