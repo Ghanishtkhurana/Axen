@@ -23,7 +23,8 @@ export const login = (creeds) =>async(dispatch)=>{
     }
     catch(err){
         console.log(err.response.data)
-        alert(err.response.data)
+        // alert(err.response.data)
+        alert("hello")
     }
 }
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Box, Center, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Image, Link, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -102,9 +102,9 @@ const MobileHomeSlider = () => {
           <Carousel responsive={responsive}>
             {data.length > 0 &&
               data.map((post, i) => (
-                <Box h={120} pl={2} pt={2} pr={2} key={i}>
+                <Box h={120} pl={2} pt={4} pr={2} key={i}>
                   <Center>
-                    <Image width={"90px"} h={"70px"} src={post.img[0]} />
+                    <Image width={"60px"} h={"70px"} src={post.img[0]} />
                   </Center>
                   <Text mt={3} noOfLines={1} fontWeight={500} fontSize={"10px"}>
                     {post.title}
@@ -124,7 +124,7 @@ const MobileHomeSlider = () => {
               mobileData.map((post, i) => (
                 <Box h={120} pl={2} pt={2} pr={2} key={i}>
                   <Center>
-                    <Image width={"70px"} h={"75px"} src={post.img[0]} />
+                    <Image width={"60px"} h={"80px"} src={post.img[0]} />
                   </Center>
                   <Text mt={3} noOfLines={1} fontWeight={500} fontSize={"10px"}>
                     {post.title}
@@ -142,14 +142,16 @@ const MobileHomeSlider = () => {
           <Carousel responsive={responsive}>
             {groceryData.length > 0 &&
               groceryData.map((post, i) => (
-                <Box h={120} pl={2} pt={2} pr={2} key={i}>
-                  <Center>
-                    <Image width={"70px"} h={"75px"} src={post.img[0]} />
+                <Link key={i} to={`/singlepage/${post._id}`}>
+                <Box h={120} pl={2} pr={2} onClick>
+                  <Center h={"90px"}>
+                    <Image width={"80px"} src={post.img[0]} />
                   </Center>
                   <Text mt={2} noOfLines={1} fontWeight={500} fontSize={"10px"}>
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>

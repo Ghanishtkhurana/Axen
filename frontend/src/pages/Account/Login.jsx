@@ -50,7 +50,6 @@ console.log("isauth",isAuth)
     setFormstate({ ...formstate, [e.target.name]: e.target.value });
   };
   const handleTheSubmit = ({ isAuth }) => {
-    alert(formstate)
     console.log(formstate);
     dispatch(login(formstate));
   };

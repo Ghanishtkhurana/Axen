@@ -77,13 +77,12 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findOne({email : email})
-    // console.log(user.email)
-    // console.log(user.password)
+   
     if(user){
         bcrypt.compare(password, user.password, function(err, result) {
             if(result){
                 const token = jwt.sign({id : user._id ,name : user.username ,role : user.role},"SECRET123")
-                res.send({msg : "Login success",token : token,name : user.username})
+                res.send({msg : "Login success",token : token,name : user.username , role : user.role})
             }
             else{
                 res.status(401).send("incorrect password")

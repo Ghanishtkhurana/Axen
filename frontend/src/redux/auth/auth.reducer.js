@@ -4,7 +4,8 @@ let token = localStorage.getItem("token");
 const initState = {
   isAuth: token ? true : false,
   token: !!token,
-  name : ""
+  name : "" ,
+  role : ""
 };
 
 const authReducer = (state = initState, action) => {
@@ -14,7 +15,8 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         isAuth: true,
-        name : action.payload.name
+        name : action.payload.name ,
+        role : action.payload.role
       };
     }
    
@@ -23,6 +25,8 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         isAuth: false,
+        name : "",
+        role : ""
       };
     }
     default:
