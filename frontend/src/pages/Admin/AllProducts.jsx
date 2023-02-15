@@ -13,6 +13,7 @@ import {
   Center,
   Spinner,
   useToast,
+  Button,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -144,7 +145,7 @@ const AllProducts = () => {
                       color={"blue"}
                       onClick={() => handleTheDelete(post._id)}
                     >
-                      Delete
+                      <Button color={"white"} bgColor={"red.300"} size={"sm"} >Delete</Button>
                     </Td>
                   </Tr>
                 ))}

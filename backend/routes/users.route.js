@@ -16,6 +16,17 @@ app.get("/admin",adminMiddleware ,async (req, res) => {
   }
 });
 
+app.delete("/delete/:id",adminMiddleware,async(req,res)=>{
+  try{
+    let {id} = req.params
+    const user = await Users.findByIdAndDelete({_id : id})
+    res.send("User deleted successfully")
+  }
+  catch(err){
+    res.send(err.message)
+  }
+})
+
 app.post("/signin/admin", async (req, res) => {
   try {
     const { username, email, password } = req.body;
