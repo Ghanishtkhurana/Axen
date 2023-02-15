@@ -14,12 +14,12 @@ import {
 import axios from "axios";
 import { site } from "../../components/backend";
 
-const postOrder = async ({ cart, formstate }) => {
+const postOrder = async ({ cart, formstate,totalPrice }) => {
   let toki = localStorage.getItem("token");
-  console.log(cart, formstate);
+  console.log(cart, formstate ,"totalprice",totalPrice);
   let res = await axios.post(
     `${site}/admin/post_orders`,
-    { cart, ...formstate },
+    { cart, ...formstate ,totalPrice },
     {
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +54,7 @@ const initState = {
 const LaptopCheckout = ({
   handleTheFetch,
   cart,
+  totalPrice,
   isOpen,
   onOpen,
   onClose,
@@ -78,7 +79,7 @@ const LaptopCheckout = ({
     ) {
 
       console.log("formstate",formstate)
-      postOrder({ cart, formstate }).then((res) => console.log(res));
+      postOrder({ cart, formstate ,totalPrice }).then((res) => console.log(res));
       checkout().then((res) => toast({
         title: res,
         position: "top",

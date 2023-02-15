@@ -327,7 +327,7 @@ const LaptopCart = () => {
         </Box>
       </Flex>
       
-       <LaptopCheckout handleTheFetch={handleTheFetch} cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+       <LaptopCheckout handleTheFetch={handleTheFetch} totalPrice={paid} cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       
     </Box>
   );
