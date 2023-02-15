@@ -16,18 +16,18 @@ import { site } from "../../components/backend";
 
 const postOrder = async ({ cart, formstate }) => {
   let toki = localStorage.getItem("token");
-  // console.log(cart, formstate);
-  // let res = await axios.post(
-  //   `${site}/admin/post_orders`,
-  //   { cart, ...formstate },
-  //   {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: toki,
-  //     },
-  //   }
-  // );
-  // return res.data;
+  console.log(cart, formstate);
+  let res = await axios.post(
+    `${site}/admin/post_orders`,
+    { cart, ...formstate },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: toki,
+      },
+    }
+  );
+  return res.data;
 };
 
 const checkout = async () => {
@@ -48,6 +48,7 @@ const initState = {
   area: "",
   landmark: "",
   state: "",
+  date : new Date().toDateString() + " " + new Date().toTimeString()
 };
 
 const LaptopCheckout = ({
@@ -75,6 +76,8 @@ const LaptopCheckout = ({
       formstate.landmark && 
       formstate.state
     ) {
+
+      console.log("formstate",formstate)
       postOrder({ cart, formstate }).then((res) => console.log(res));
       checkout().then((res) => toast({
         title: res,

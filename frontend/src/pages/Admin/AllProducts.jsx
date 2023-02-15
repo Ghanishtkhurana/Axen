@@ -114,7 +114,7 @@ const AllProducts = () => {
             <Tbody>
               {data.length > 0 &&
                 data.map((post, i) => (
-                  <Tr>
+                  <Tr key={i}>
                     <Td>
                       <Text
                         width={"180px"}

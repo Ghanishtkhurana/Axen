@@ -35,7 +35,7 @@ const getAllUser = async () => {
 const deleteProduct = async (id) => {
   let toki = localStorage.getItem("token");
   console.log("id", id);
-  const res = await axios.delete(`${site}/products/${id}`, {
+  const res = await axios.delete(`${site}/users/delete/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: toki,
@@ -44,7 +44,6 @@ const deleteProduct = async (id) => {
   const data = res.data;
   return data;
 };
-console.log("token =>",localStorage.getItem("token"))
 
 const Users = () => {
   const [data, setData] = useState([]);

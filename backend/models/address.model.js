@@ -9,7 +9,8 @@ const AddressSchema = new mongoose.Schema({
     area : {type : String ,required : true} ,
     landmark : {type : String ,required : true},
     state : {type : String ,required : true},
-    userId : {type : String ,required : true}
+    userId : {type : String ,required : true} ,
+    date : { type : String ,require : true}
 })
 
 const Address = mongoose.model("AddressDetail",AddressSchema)
