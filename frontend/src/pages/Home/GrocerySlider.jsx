@@ -93,10 +93,14 @@ const GrocerySlider = () => {
 
       {/* Mobile  */}
       <Flex mt={10} mb={10}>
-        <Box h={200} w={"20%"} pt={10} bgColor={"purple.300"}>
-          <Text fontSize={"20px"} fontWeight={500} color={"white"}>
-            Best of Mobiles Phones
-          </Text>
+        <Box
+          h={200}
+          w={"20%"}
+          overflow={"hidden"}
+          backgroundImage={`url(https://i.postimg.cc/gj0JRv78/Screenshot-2023-02-16-025748.png)`}
+          bgSize={"cover"}
+        >
+        
         </Box>
         <Box border={"1px"} borderColor={"gray.300"} w={"80%"}>
           <Carousel responsive={responsive}>
@@ -117,11 +121,13 @@ const GrocerySlider = () => {
 
       {/* Grocery  */}
       <Flex mt={10} mb={10}>
-        <Box h={200} w={"20%"} pt={10} bgColor={"purple.300"}>
-          <Text fontSize={"20px"} fontWeight={500} color={"white"}>
-            Best of Grocery Products
-          </Text>
-        </Box>
+        <Box
+          backgroundImage={`url(https://i.postimg.cc/g2mV771K/Screenshot-2023-02-16-024203.png)`}
+          bgSize={"cover"}
+          h={200}
+          w={"20%"}
+          pt={10}
+        ></Box>
         <Box border={"1px"} borderColor={"gray.300"} w={"80%"}>
           <Carousel responsive={responsive}>
             {groceryData.length > 0 &&
@@ -141,11 +147,12 @@ const GrocerySlider = () => {
 
       {/* Home  */}
       <Flex mt={10} mb={10}>
-        <Box h={200} w={"20%"} pt={10} bgColor={"purple.300"}>
-          <Text fontSize={"20px"} fontWeight={500} color={"white"}>
-            Best of Home Products
-          </Text>
-        </Box>
+        <Box
+          backgroundImage={`url(https://i.postimg.cc/JnV4Tf2r/Screenshot-2023-02-16-024516.png)`}
+          bgSize={"cover"}
+          h={200}
+          w={"20%"}
+        ></Box>
         <Box border={"1px"} borderColor={"gray.300"} w={"80%"}>
           <Carousel responsive={responsive}>
             {homeData.length > 0 &&
@@ -165,16 +172,17 @@ const GrocerySlider = () => {
 
       {/* Electronic  */}
       <Flex>
-        <Box h={200} w={"20%"} pt={10} bgColor={"purple.300"}>
-          <Text fontSize={"20px"} fontWeight={500} color={"white"}>
-            Best of Electronic
-          </Text>
+        <Box
+        backgroundImage={`url(https://i.postimg.cc/VLqf6Zvp/78731249.jpg)`}
+        bgSize={"cover"}
+        h={200} w={"20%"}>
+          
         </Box>
         <Box border={"1px"} borderColor={"gray.300"} w={"80%"}>
           <Carousel responsive={responsive}>
             {data.length > 0 &&
               data.map((post, i) => (
-                <Box h={200} pl={10}  pr={10} key={i}>
+                <Box h={200} pl={10} pr={10} key={i}>
                   <Center h={"130px"}>
                     <Image width={"100px"} src={post.img[0]} />
                   </Center>

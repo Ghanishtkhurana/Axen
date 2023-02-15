@@ -158,7 +158,7 @@ const Order = () => {
                         color={"white"}
                         onClick={()=>setBtn(!btn)}
                       >
-                        <Text fontSize={"12px"}>{post.mobileNumber}</Text>
+                        <Text fontSize={"12px"}>Show Address</Text>
                       </Button>
                       <ActDailer post={post} btn={btn} />
                     </Td>
