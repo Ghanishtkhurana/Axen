@@ -3,7 +3,7 @@ const adminMiddleware = require("../middleware/admin.middleware");
 const Product = require("../models/product.model");
 const app = express.Router();
 
-app.use(express.json())
+app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
@@ -14,9 +14,27 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/addproduct",adminMiddleware,async (req, res) => {
+app.get("/title", async (req, res) => {
   try {
-    const products = await Product.create({...req.body});
+    let search = req.query.search;
+    console.log(search)
+    let product = await Product.find({
+      title: { $regex: ".*" + search + ".*", $options: "i" },
+    });
+    if(product.length > 0){
+      return res.send(product)
+    }
+    else{
+      return res.send("No Products found")
+    }
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
+app.post("/addproduct", adminMiddleware, async (req, res) => {
+  try {
+    const products = await Product.create({ ...req.body });
     res.send(products);
   } catch (e) {
     res.send(e.message);
