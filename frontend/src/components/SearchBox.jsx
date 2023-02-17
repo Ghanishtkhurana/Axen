@@ -7,11 +7,12 @@ const SearchBox = ({ data }) => {
   return (
     <Link to={`/singlepage/${data._id}`}>
       <Flex m={2} gap={4}>
-        <Box>
+        <Box w={"10%"}>
           <Image src={data.img[0]} width={9} />
         </Box>
-        <Box mt={1}>
+        <Box w={"80%"} mt={1}>
           <Text
+          textAlign={"left"}
             fontWeight={500}
             color={"gray.600"}
             fontSize={"12px"}

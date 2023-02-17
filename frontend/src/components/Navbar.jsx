@@ -18,6 +18,7 @@ import {
   DrawerCloseButton,
   useDisclosure,
   useToast,
+  Center,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FcSearch } from "react-icons/fc";
@@ -29,6 +30,7 @@ import { GiClothes } from "react-icons/gi";
 import { FiMonitor } from "react-icons/fi";
 import { RiHandHeartLine } from "react-icons/ri";
 import { ImCross } from "react-icons/im";
+import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/auth/auth.action";
@@ -77,7 +79,6 @@ const getData = async (text) => {
 
 const Navbar = () => {
   const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
@@ -86,13 +87,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [text, setText] = useState("");
-  const [data,setData] = useState([])
+  const [data, setData] = useState([]);
 
-  useEffect(()=>{
-    handleTheSearch()
-  },[text])
+  useEffect(() => {
+    handleTheSearch();
+  }, [text]);
 
-  console.log(role);
   const handleTheLogout = () => {
     dispatch(logout());
     console.log("logout");
@@ -117,14 +117,24 @@ const Navbar = () => {
     console.log("welcome admin");
   };
 
+  const handleTheEmpty = () => {
+    setData([]);
+  };
+
   const handleTheSearch = (e) => {
     getData(text)
       .then((res) => setData(res))
       .catch((e) => console.log(e));
   };
 
-  console.log("data=>", data);
-  console.log(data.length)
+  const handleTheKeyPress = (e) => {
+    if (e.key == "Enter") {
+      console.log("enter pressed");
+    }
+  };
+  console.log(data);
+
+  const handleClick = () => {};
   return (
     <Box>
       {isLargerThan1280 ? (
@@ -155,10 +165,11 @@ const Navbar = () => {
                   borderRadius={"10px"}
                 >
                   <Input
-                  value={text}
+                    value={text}
                     w={"420px"}
                     placeholder="Search Product"
-                    onChange={(e)=>setText(e.target.value)}
+                    onChange={(e) => setText(e.target.value)}
+                    onKeyPress={(e) => handleTheKeyPress(e)}
                   />
                   <InputRightElement>
                     <Button
@@ -167,20 +178,56 @@ const Navbar = () => {
                       _hover={{}}
                       onClick={handleClick}
                     >
-                      <Icon as={FcSearch} w={4} h={4} />
+                      {data.length == 0 && (
+                        <Icon as={FcSearch} w={4} h={4} />
+                      )}
+                      {data.length !==0  && (
+                        <Icon
+                          onClick={handleTheEmpty}
+                          as={RxCross2}
+                          w={4}
+                          h={4}
+                        />
+                      )}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
                 {/* Search Box  */}
-                {data !== "No products found" && (
+                {data == "No Products found" && (
                   <Box
+                    border={"1px solid"}
+                    borderColor={"gray.300"}
+                    overflowX={"hidden"}
+                    maxH={"390px"}
+                    position={"absolute"}
+                    bgColor={"white"}
+                    w={"420px"}
+                    borderBottomRadius={10}
+                  >
+                    <Flex flexDirection={"column"} alignItems={"center"}>
+                      <Image
+                        w={250}
+                        src="https://i.postimg.cc/P55nPzSH/no-result.gif"
+                      />
+                      <Text fontWeight={500} fontSize={"18px"} mb={5}>No products found</Text>
+                    </Flex>
+                  </Box>
+                )}
+                {data !== "No Products found" && (
+                  <Box
+                    borderBottomRadius={10}
+                    overflow={"scroll"}
+                    overflowX={"hidden"}
+                    border={"1px solid"}
+                    borderColor={"gray.300"}
+                    maxH={"390px"}
                     position={"absolute"}
                     bgColor={"white"}
                     w={"420px"}
                   >
-                    {
-                      data.map((post,i)=><SearchBox data={post} i={i} key={i} />)
-                    }
+                    {data.map((post, i) => (
+                      <SearchBox data={post} i={i} key={i} />
+                    ))}
                   </Box>
                 )}
               </Box>

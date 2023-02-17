@@ -19,11 +19,11 @@ app.get("/title", async (req, res) => {
     let search = req.query.search;
     console.log(search)
     if(search == ""){
-      return res.send("No products found")
+      return res.send("No Products found")
     }
     let product = await Product.find({
       title: { $regex: ".*" + search + ".*", $options: "i" },
-    });
+    })
     if(product.length > 0){
       return res.send(product)
     }
