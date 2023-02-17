@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/auth/auth.action";
 import { site } from "./backend";
 import axios from "axios";
+import SearchBox from "./SearchBox";
 
 const Sec = [
   {
@@ -68,6 +69,12 @@ const Sec = [
   },
 ];
 
+const getData = async (text) => {
+  const res = await axios.get(`${site}/products/title?search=${text}`);
+  const data = res.data;
+  return data;
+};
+
 const Navbar = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -78,8 +85,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  console.log("name", name);
-  useEffect(() => {}, []);
+  const [text, setText] = useState("");
+  const [data,setData] = useState([])
+
+  useEffect(()=>{
+    handleTheSearch()
+  },[text])
 
   console.log(role);
   const handleTheLogout = () => {
@@ -105,6 +116,15 @@ const Navbar = () => {
   const handleTheAdmin = () => {
     console.log("welcome admin");
   };
+
+  const handleTheSearch = (e) => {
+    getData(text)
+      .then((res) => setData(res))
+      .catch((e) => console.log(e));
+  };
+
+  console.log("data=>", data);
+  console.log(data.length)
   return (
     <Box>
       {isLargerThan1280 ? (
@@ -134,7 +154,12 @@ const Navbar = () => {
                   bgColor={"white"}
                   borderRadius={"10px"}
                 >
-                  <Input pr={"250px"} placeholder="Enter password" />
+                  <Input
+                  value={text}
+                    w={"420px"}
+                    placeholder="Search Product"
+                    onChange={(e)=>setText(e.target.value)}
+                  />
                   <InputRightElement>
                     <Button
                       bg={"none"}
@@ -146,6 +171,18 @@ const Navbar = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                {/* Search Box  */}
+                {data !== "No products found" && (
+                  <Box
+                    position={"absolute"}
+                    bgColor={"white"}
+                    w={"420px"}
+                  >
+                    {
+                      data.map((post,i)=><SearchBox data={post} i={i} key={i} />)
+                    }
+                  </Box>
+                )}
               </Box>
             </Flex>
             {/* Box 3  */}
