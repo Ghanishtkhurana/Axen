@@ -82,17 +82,13 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth, token, name, role } = useSelector((store) => store.auth);
+  const { isAuth, token, name} = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    handleTheSearch();
-  }, [text]);
-
+  const role = localStorage.getItem("role")
   const handleTheLogout = () => {
     dispatch(logout());
     console.log("logout");
@@ -122,6 +118,7 @@ const Navbar = () => {
   };
 
   const handleTheSearch = (e) => {
+    setText(e.target.value)
     getData(text)
       .then((res) => setData(res))
       .catch((e) => console.log(e));
@@ -168,7 +165,7 @@ const Navbar = () => {
                     value={text}
                     w={"420px"}
                     placeholder="Search Product"
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={handleTheSearch}
                     onKeyPress={(e) => handleTheKeyPress(e)}
                   />
                   <InputRightElement>

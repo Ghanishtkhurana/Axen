@@ -11,15 +11,22 @@ import {
   Th,
   Thead,
   useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Tr,
   useDisclosure,
+  useFormControlStyles,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { site } from "../../components/backend";
-import ActDailer from "./ActDailer";
+import AddressCard, { getAddress } from "./AddressCard";
 import AdminNav from "./AdminNav";
-import ShowProduct from "./ShowProduct";
 
 const order = async () => {
   let toki = localStorage.getItem("token");
@@ -50,9 +57,9 @@ const Order = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
-  const [btn,setBtn] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = React.useRef()
+  const [Id,setId] = useState("")
 
   useEffect(() => {
     handleTheData();
@@ -87,6 +94,12 @@ const Order = () => {
       );
     handleTheData();
   };
+
+  const hanldeTheAddress = (id)=>{
+    onOpen()
+    setId(id)
+    console.log(Id)
+  }
 
   return (
     <Box pt={10}>
@@ -156,11 +169,13 @@ const Order = () => {
                         bgColor={"orange.300"}
                         _hover={{}}
                         color={"white"}
-                        onClick={()=>setBtn(!btn)}
+                        onClick={()=>hanldeTheAddress(post._id)}
+                        // onClick={onOpen}
+                        // onClick={hanldeTheAddress}
                       >
                         <Text fontSize={"12px"}>Show Address</Text>
                       </Button>
-                      <ActDailer post={post} btn={btn} />
+                      {/* Address  */}
                     </Td>
                     <Td>
                       <Button
@@ -168,17 +183,10 @@ const Order = () => {
                         bgColor={"orange.300"}
                         _hover={{}}
                         color={"white"}
-                        onClick={onOpen}
                       >
                         <Text fontSize={"12px"}>Show Products</Text>
                       </Button>
-                      <ShowProduct
-                        post={post.cart}
-                        isOpen={isOpen}
-                        onOpen={onOpen}
-                        onClose={onClose}
-                        cancelRef={cancelRef}
-                      />
+                     
                     </Td>
                     <Td>
                       <Text fontSize={"12px"} fontWeight={500}>
@@ -194,6 +202,7 @@ const Order = () => {
           </Table>
         </TableContainer>
       </Box>
+      <AddressCard id={Id} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Box>
   );
 };

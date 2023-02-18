@@ -16,6 +16,16 @@ app.get("/orders",adminMiddleware,async(req,res)=>{
         res.send(err.message)
     }
 })
+app.get("/orders/:id",adminMiddleware,async(req,res)=>{
+    try{
+        const {id} = req.params
+        const userOrders = await Address.findById(id)
+        res.send(userOrders)
+    }
+    catch(err){
+        res.send(err.message)
+    }
+})
 
 app.post("/post_orders",auth,async(req,res)=>{
     try{
