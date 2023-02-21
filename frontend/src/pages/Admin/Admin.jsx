@@ -6,6 +6,7 @@ import {
   Icon,
   Image,
   Center,
+  ScaleFade,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdminNav from "./AdminNav";
@@ -93,6 +94,9 @@ const Admin = () => {
     setLoading(false);
   };
 
+  const Name = localStorage.getItem("name")
+  console.log("name",Name)
+
   console.log(name);
   return (
     <Box pt={10} overflowX={"hidden"}>
@@ -105,6 +109,7 @@ const Admin = () => {
               w={"20%"}
               h={"529px"}
               p={2}
+              height={""}
               background={
                 "url(https://cdn.vectorstock.com/i/preview-1x/45/27/abstract-gradient-background-blurred-purple-vector-21994527.jpg) center/cover no-repeat"
               }
@@ -147,7 +152,7 @@ const Admin = () => {
                   fontSize={"18px"}
                   color={"white"}
                 >
-                  Admin name
+                  {Name}
                 </Text>
               </Flex>
               {/* Pages  */}
@@ -338,7 +343,9 @@ const Admin = () => {
 
                 </Box>
                 <Box mt={-5}>
+                  <ScaleFade initialScale={2} in={true}>
                   <PieChart />
+                  </ScaleFade>
                 </Box>
               </Flex>
             </Box>

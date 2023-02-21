@@ -43,7 +43,7 @@ const order = async () => {
 const deleteProduct = async (id) => {
   let toki = localStorage.getItem("token");
   console.log("id", id);
-  const res = await axios.delete(`${site}/users/delete/${id}`, {
+  const res = await axios.delete(`${site}/admin/order/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: toki,
@@ -178,13 +178,14 @@ const Order = () => {
                       {/* Address  */}
                     </Td>
                     <Td>
-                      <Button
+                      <Button ml={5}
+                      onClick={()=>handleTheDelete(post._id)}
                         size={"sm"}
                         bgColor={"orange.300"}
                         _hover={{}}
                         color={"white"}
                       >
-                        <Text fontSize={"12px"}>Show Products</Text>
+                        <Text fontSize={"12px"}>Delete</Text>
                       </Button>
                      
                     </Td>

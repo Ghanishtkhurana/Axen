@@ -37,9 +37,10 @@ app.post("/post_orders",auth,async(req,res)=>{
     }
 })
 
-app.delete("/:id",auth,async(req,res)=>{
+app.delete("/order/:id",auth,async(req,res)=>{
     try{
-        let {id} = req.body
+        let {id} = req.params
+        console.log(id)
         const userOrders = await Address.findByIdAndDelete({_id : id})
         res.send("user product buy details delete")
     }
