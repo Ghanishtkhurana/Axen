@@ -1,5 +1,13 @@
-import { Box, Flex, Text, useMediaQuery, Icon, Image } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Flex,
+  Text,
+  useMediaQuery,
+  Icon,
+  Image,
+  Center,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import AdminNav from "./AdminNav";
 import { FaUserLock } from "react-icons/fa";
 import { GiCardboardBoxClosed } from "react-icons/gi";
@@ -8,6 +16,9 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { BiUser } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { site } from "../../components/backend";
+import PieChart from "../../components/PieChart";
 
 const adminComp = [
   {
@@ -32,16 +43,64 @@ const adminComp = [
   },
 ];
 
+const getOrder = async () => {
+  let toki = localStorage.getItem("token");
+  const res = await axios.get(`${site}/admin/orders`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: toki,
+    },
+  });
+  let data = res.data;
+  return data;
+};
+
+const getAllProducts = async () => {
+  const res = await axios.get(`${site}/products`);
+  let data = res.data;
+  return data;
+};
+
+const getAllUser = async () => {
+  let toki = localStorage.getItem("token");
+  const res = await axios.get(`${site}/users/admin`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: toki,
+    },
+  });
+  let data = res.data;
+  return data;
+};
+
 const Admin = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width:800px)");
+  const [order, setOrder] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [products, setProduct] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { name } = useSelector((store) => store.auth);
+
+  useEffect(() => {
+    handleTheData();
+  }, []);
+
+  const handleTheData = async () => {
+    setLoading(true);
+    await getOrder().then((res) => setOrder(res));
+    await getAllProducts().then((res) => setProduct(res));
+    await getAllUser().then((res) => setUsers(res));
+    setLoading(false);
+  };
+
   console.log(name);
   return (
-    <Box pt={10}>
+    <Box pt={10} overflowX={"hidden"}>
       {/* <AdminNav /> */}
       {isLargerThan1280 ? (
         <Box>
           <Flex>
+            {/* 1st box  */}
             <Box
               w={"20%"}
               h={"529px"}
@@ -94,7 +153,7 @@ const Admin = () => {
               {/* Pages  */}
               <Flex p={5} gap={6} flexDirection={"column"}>
                 {adminComp.map((post, i) => (
-                  <Link to={post.link}>
+                  <Link key={i} to={post.link}>
                     <Flex gap={2}>
                       <Icon
                         color={"white"}
@@ -116,87 +175,170 @@ const Admin = () => {
                 ))}
               </Flex>
             </Box>
+            {/* 2nd box  */}
             <Box w={"80%"}>
-              <Flex p={5} gap={250}>
-                {/* box1  */}
-                <Box>
-                  <Box>
-                    <Box
-                      mt={5}
-                      position={"fixed"}
-                      bgColor={"gray.200"}
-                      h={"120px"}
-                      w={200}
-                    ></Box>
-                    <Box
-                      mt={"-6px"}
-                      ml={"20px"}
-                      position={"absolute"}
-                      bgColor={"orange.200"}
-                      h={"65px"}
-                      w={70}
-                    ></Box>
+              {/* Cards  */}
+              <Flex p={5} justifyContent={"space-between"}>
+                {/* users card  */}
+                <Link to={"/admin/users"}>
+                  <Box
+                    pt={3}
+                    borderRadius={"10px"}
+                    background={
+                      "url(https://media.istockphoto.com/id/912278192/vector/abstract-orange-background-vector.jpg?s=612x612&w=0&k=20&c=GG0Iu1--sa2ARNxxoYom1igGdgDpUGI8lWVPPaOgzRs=) center/cover no-repeat"
+                    }
+                    h={140}
+                    w={200}
+                    bgColor={"gray.200"}
+                  >
+                    <Center>
+                      <Box
+                        borderRadius={"50%"}
+                        background={
+                          "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                        }
+                        h={"60px"}
+                        w={"60px"}
+                      >
+                        <Icon mt={3} color={"white"} w={8} h={8} as={BiUser} />
+                      </Box>
+                    </Center>
+                    <Flex justifyContent={"center"} p={2} gap={4}>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        Total Users
+                      </Text>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        {users && users.length}
+                      </Text>
+                    </Flex>
                   </Box>
+                </Link>
+
+                {/* All Products card  */}
+                <Link to={"/admin/allproducts"}>
+                  <Box
+                    pt={3}
+                    borderRadius={"10px"}
+                    background={
+                      "url(https://img.freepik.com/free-vector/gradient-background-green-tones_23-2148374530.jpg) center/cover no-repeat"
+                    }
+                    h={140}
+                    w={200}
+                    bgColor={"gray.200"}
+                  >
+                    <Center>
+                      <Box
+                        borderRadius={"50%"}
+                        background={
+                          "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                        }
+                        h={"60px"}
+                        w={"60px"}
+                      >
+                        <Icon
+                          mt={3}
+                          color={"white"}
+                          w={8}
+                          h={8}
+                          as={GiCardboardBoxClosed}
+                        />
+                      </Box>
+                    </Center>
+                    <Flex justifyContent={"center"} mt={1} p={2} gap={4}>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        Total Products
+                      </Text>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        {products && products.length}
+                      </Text>
+                    </Flex>
+                  </Box>
+                </Link>
+                {/* Order card  */}
+                <Link to={"/admin/orders"}>
+                  <Box
+                    borderRadius={"10px"}
+                    background={
+                      "url(https://img.freepik.com/premium-vector/abstract-blue-purple-gradient-color-background-website-banner-graphic-design_120819-729.jpg) center/cover no-repeat"
+                    }
+                    pt={3}
+                    h={140}
+                    w={200}
+                    bgColor={"gray.200"}
+                  >
+                    <Center>
+                      <Box
+                        borderRadius={"50%"}
+                        background={
+                          "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                        }
+                        h={"60px"}
+                        w={"60px"}
+                      >
+                        <Icon
+                          mt={3}
+                          color={"white"}
+                          w={8}
+                          h={8}
+                          as={CiDeliveryTruck}
+                        />
+                      </Box>
+                    </Center>
+                    <Flex justifyContent={"center"} mt={1} p={2} gap={4}>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        Total Orders
+                      </Text>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        {order && order.length}
+                      </Text>
+                    </Flex>
+                  </Box>
+                </Link>
+                {/* Add product card  */}
+                <Link to={"/admin/addproducts"}>
+                  <Box
+                    borderRadius={"10px"}
+                    background={
+                      "url(https://uploads-ssl.webflow.com/5a9ee6416e90d20001b20038/62ee0d23043a368090e6f389_Rectangle%201%20-%202022-08-06T094136.523.svg) center/cover no-repeat"
+                    }
+                    pt={3}
+                    h={140}
+                    w={200}
+                    bgColor={"gray.200"}
+                  >
+                    <Center>
+                      <Box
+                        borderRadius={"50%"}
+                        background={
+                          "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                        }
+                        h={"60px"}
+                        w={"60px"}
+                      >
+                        <Icon
+                          mt={4}
+                          color={"white"}
+                          w={7}
+                          h={7}
+                          as={MdOutlineAddShoppingCart}
+                        />
+                      </Box>
+                    </Center>
+                    <Flex justifyContent={"center"} mt={1} p={2} gap={4}>
+                      <Text color={"white"} fontSize={"18px"} fontWeight={500}>
+                        Add Products
+                      </Text>
+                    </Flex>
+                  </Box>
+                </Link>
+              </Flex>
+              {/* pie chart box  */}
+              <Flex overflow={"hidden"} ml={5} justifyContent={"space-between"}>
+                <Box h={300} w={500} bgColor={"green.100"}>
+
                 </Box>
-                {/* Box2  */}
-                <Box>
-                  <Box>
-                    <Box
-                      mt={5}
-                      position={"fixed"}
-                      bgColor={"gray.200"}
-                      h={"120px"}
-                      w={200}
-                    ></Box>
-                    <Box
-                      mt={"-6px"}
-                      ml={"20px"}
-                      position={"absolute"}
-                      bgColor={"orange.200"}
-                      h={"65px"}
-                      w={70}
-                    ></Box>
-                  </Box>
-                </Box>
-                {/* Box 3  */}
-                <Box>
-                  <Box>
-                    <Box
-                      mt={5}
-                      position={"fixed"}
-                      bgColor={"gray.200"}
-                      h={"120px"}
-                      w={200}
-                    ></Box>
-                    <Box
-                      mt={"-6px"}
-                      ml={"20px"}
-                      position={"absolute"}
-                      bgColor={"orange.200"}
-                      h={"65px"}
-                      w={70}
-                    ></Box>
-                  </Box>
-                </Box>
-                {/* Box 4  */}
-                <Box>
-                  <Box>
-                    <Box
-                      mt={5}
-                      position={"fixed"}
-                      bgColor={"gray.200"}
-                      h={"120px"}
-                      w={200}
-                    ></Box>
-                    <Box
-                      mt={"-6px"}
-                      ml={"20px"}
-                      position={"absolute"}
-                      bgColor={"orange.200"}
-                      h={"65px"}
-                      w={70}
-                    ></Box>
-                  </Box>
+                <Box mt={-5}>
+                  <PieChart />
                 </Box>
               </Flex>
             </Box>
