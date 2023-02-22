@@ -21,6 +21,7 @@ const getData = async ({price,category}) => {
   return res.data;
 };
 
+
 const LaptopElec = ({price,category}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);

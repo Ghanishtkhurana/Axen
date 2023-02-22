@@ -82,14 +82,14 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth, token} = useSelector((store) => store.auth);
+  const { isAuth, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
-  const role = localStorage.getItem("role")
-  const name = localStorage.getItem("name")
+  const role = localStorage.getItem("role");
+  const name = localStorage.getItem("name");
   const handleTheLogout = () => {
     dispatch(logout());
     console.log("logout");
@@ -119,7 +119,7 @@ const Navbar = () => {
   };
 
   const handleTheSearch = (e) => {
-    setText(e.target.value)
+    setText(e.target.value);
     getData(text)
       .then((res) => setData(res))
       .catch((e) => console.log(e));
@@ -176,10 +176,8 @@ const Navbar = () => {
                       _hover={{}}
                       onClick={handleClick}
                     >
-                      {data.length == 0 && (
-                        <Icon as={FcSearch} w={4} h={4} />
-                      )}
-                      {data.length !==0  && (
+                      {data.length == 0 && <Icon as={FcSearch} w={4} h={4} />}
+                      {data.length !== 0 && (
                         <Icon
                           onClick={handleTheEmpty}
                           as={RxCross2}
@@ -207,7 +205,9 @@ const Navbar = () => {
                         w={250}
                         src="https://i.postimg.cc/P55nPzSH/no-result.gif"
                       />
-                      <Text fontWeight={500} fontSize={"18px"} mb={5}>No products found</Text>
+                      <Text fontWeight={500} fontSize={"18px"} mb={5}>
+                        No products found
+                      </Text>
                     </Flex>
                   </Box>
                 )}
@@ -314,6 +314,20 @@ const Navbar = () => {
                   )}
                 </Button>
               </Link>
+              {/* Admin  */}
+              <Button mt={1} size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+                <Link to={"/admin"}>
+                  {role == "Admin" && (
+                    <Text onClick={handleTheAdmin} fontSize={"13px"}>
+                      Admin
+                    </Text>
+                  )}
+                </Link>
+                {role == "User" && <Text fontSize={"13px"}>User</Text>}
+                <Link to={"/signin"}>
+                  {role == "" && <Text fontSize={"13px"}>Sign-In</Text>}
+                </Link>
+              </Button>
               {/* Drawer  */}
               <Link to={"/cart"}>
                 <Button
@@ -425,6 +439,7 @@ const Navbar = () => {
                           )}
                         </Button>
                       </Link>
+
                       <Link to={"/cart"}>
                         <Button
                           onClick={GoToCart}

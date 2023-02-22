@@ -6,15 +6,28 @@ import {
   Icon,
   Spinner,
   Center,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { GoStar } from "react-icons/go";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { site } from "../../components/backend";
 import { Link } from "react-router-dom";
+import { FaRegDotCircle } from "react-icons/fa";
+import { RxStarFilled } from "react-icons/rx";
+import { BsSliders } from "react-icons/bs";
 
-const getData = async () => {
-  const res = await axios.get(`${site}/products/electronic&appliances`);
+const getData = async ({ price, brand }) => {
+  const res = await axios.get(
+    `${site}/products/electronic&appliances?brand=${brand}&price=${price}`
+  );
   console.log(res.data);
   return res.data;
 };
@@ -22,17 +35,272 @@ const getData = async () => {
 const MobileElec = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [brand, setBrand] = useState("");
+  const [price, setPrice] = useState("");
+  const btnRef = React.useRef();
+
   useEffect(() => {
     handleTheFetch();
-  }, []);
+  }, [price, brand]);
 
   const handleTheFetch = async () => {
     setLoading(true);
-    const append = await getData().then((res) => setData(res));
+    const append = await getData({ price, brand }).then((res) =>
+      setData(res)
+    );
     setLoading(false);
   };
   return (
     <Box>
+      {/* Filter  */}
+      <Flex
+        gap={3}
+        onClick={onOpen}
+        justifyContent={"center"}
+        borderBottom={"1px solid"}
+        borderColor={"gray.300"}
+      >
+        <Icon mt={4} as={BsSliders} />
+        <Text fontWeight={400} pt={3} fontSize={"18px"}>
+          Filter
+        </Text>
+        <Drawer
+          isOpen={isOpen}
+          placement="top"
+          onClose={onClose}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerBody>
+              <Flex justifyContent={"space-around"}>
+                {/* Price  */}
+                <Box
+                  borderBottom={"1px"}
+                  borderColor={"gray.300"}
+                  pt={2}
+                  pb={2}
+                >
+                  <Text
+                    fontSize={"14px"}
+                    textAlign={"left"}
+                    pl={1}
+                    color={"black"}
+                    fontWeight={500}
+                  >
+                    Price
+                  </Text>
+                  <Text
+                    color={"black"}
+                    fontWeight={500}
+                    fontSize={"11px"}
+                    letterSpacing={1}
+                    m={1}
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    textAlign={"left"}
+                    onClick={() => setPrice("")}
+                  >
+                    All price Range
+                  </Text>
+                  <Text
+                    color={"black"}
+                    fontWeight={500}
+                    fontSize={"11px"}
+                    letterSpacing={1}
+                    m={1}
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    textAlign={"left"}
+                    onClick={() => setPrice("0-4000")}
+                  >
+                    ₹0 - ₹4,OOO
+                  </Text>
+                  <Text
+                    color={"black"}
+                    fontWeight={500}
+                    fontSize={"11px"}
+                    letterSpacing={1}
+                    m={1}
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setPrice("4000-30000")}
+                    textAlign={"left"}
+                  >
+                    ₹4,OOO - ₹30,000
+                  </Text>
+                  <Text
+                    color={"black"}
+                    fontWeight={500}
+                    fontSize={"11px"}
+                    letterSpacing={1}
+                    m={1}
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    textAlign={"left"}
+                    onClick={() => setPrice("30000-50000")}
+                  >
+                    ₹30,OOO - ₹50,OOO
+                  </Text>
+                  <Text
+                    color={"black"}
+                    fontWeight={500}
+                    fontSize={"11px"}
+                    letterSpacing={1}
+                    m={1}
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    textAlign={"left"}
+                    onClick={() => setPrice("morethan50000")}
+                  >
+                    Over ₹50,OOO
+                  </Text>
+                </Box>
+                {/* Brand  */}
+                <Box
+                  borderBottom={"1px"}
+                  borderColor={"gray.300"}
+                  pt={2}
+                  pb={2}
+                >
+                  <Text
+                    fontSize={"14px"}
+                    textAlign={"left"}
+                    pl={1}
+                    color={"black"}
+                    fontWeight={500}
+                  >
+                    Category
+                  </Text>
+                  {/* Option  */}
+                  <Flex
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    ml={1}
+                    gap={1}
+                  >
+                    <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
+                    <Text
+                      fontWeight={500}
+                      fontSize={"11px"}
+                      letterSpacing={1}
+                      m={1}
+                      textAlign={"left"}
+                      onClick={() => setBrand("")}
+                    >
+                      All brand
+                    </Text>
+                  </Flex>
+                  <Flex
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    ml={1}
+                    gap={1}
+                  >
+                    <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
+                    <Text
+                      fontWeight={500}
+                      fontSize={"11px"}
+                      letterSpacing={1}
+                      m={1}
+                      textAlign={"left"}
+                      onClick={() => setBrand("Android TV")}
+                    >
+                      Android TV
+                    </Text>
+                  </Flex>
+                  <Flex
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    ml={1}
+                    gap={1}
+                  >
+                    <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
+                    <Text
+                      fontWeight={500}
+                      fontSize={"11px"}
+                      letterSpacing={1}
+                      m={1}
+                      textAlign={"left"}
+                      onClick={() => setBrand("Washing Machine")}
+                    >
+                      Washing Machine
+                    </Text>
+                  </Flex>
+                  <Flex
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    ml={1}
+                    gap={1}
+                  >
+                    <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
+                    <Text
+                      fontWeight={500}
+                      fontSize={"11px"}
+                      letterSpacing={1}
+                      m={1}
+                      textAlign={"left"}
+                      onClick={() => setBrand("Kitchen Appliances")}
+                    >
+                      Kitchen Appliances
+                    </Text>
+                  </Flex>
+                  <Flex
+                    _hover={{
+                      color: "rgb(200,136,240)",
+                      transition: ".3s",
+                      cursor: "pointer",
+                    }}
+                    ml={1}
+                    gap={1}
+                  >
+                    <Icon as={FaRegDotCircle} mt={"6px"} w={3} h={3} />
+                    <Text
+                      fontWeight={500}
+                      fontSize={"11px"}
+                      letterSpacing={1}
+                      m={1}
+                      textAlign={"left"}
+                      onClick={() => setBrand("Iron")}
+                    >
+                      Iron
+                    </Text>
+                  </Flex>
+                </Box>
+              </Flex>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </Flex>
       {loading && (
         <Box>
           <Spinner

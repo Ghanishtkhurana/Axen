@@ -58,7 +58,7 @@ const MobileSinglepage = ({ data }) => {
   console.log("data=>",data)
   console.log("data=>",Object.keys(data).length)
   return (
-    <Box>
+    <Box mb={10}>
     {/* //   Mobile screen */}
     {objLength > 0 && <Box>
       <Box>
