@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
 import { site } from "../../components/backend";
 
 const responsive = {
@@ -106,6 +107,7 @@ const GrocerySlider = () => {
           <Carousel responsive={responsive}>
             {mobileData.length > 0 &&
               mobileData.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={200} pl={10} pr={10} key={i} pt={10}>
                   <Center h={"100px"}>
                     <Image width={"90px"} src={post.img[0]} />
@@ -114,6 +116,7 @@ const GrocerySlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
@@ -132,6 +135,7 @@ const GrocerySlider = () => {
           <Carousel responsive={responsive}>
             {groceryData.length > 0 &&
               groceryData.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={200} pl={10} pr={10} key={i} pt={10}>
                   <Center h={"100px"}>
                     <Image width={"90px"} src={post.img[0]} />
@@ -140,6 +144,7 @@ const GrocerySlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
@@ -157,6 +162,7 @@ const GrocerySlider = () => {
           <Carousel responsive={responsive}>
             {homeData.length > 0 &&
               homeData.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={200} pl={10} pr={10} key={i} pt={10}>
                   <Center h={"100px"}>
                     <Image width={"90px"} src={post.img[0]} />
@@ -165,6 +171,7 @@ const GrocerySlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
@@ -182,6 +189,7 @@ const GrocerySlider = () => {
           <Carousel responsive={responsive}>
             {data.length > 0 &&
               data.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={200} pl={10} pr={10} key={i}>
                   <Center h={"130px"}>
                     <Image width={"100px"} src={post.img[0]} />
@@ -190,6 +198,7 @@ const GrocerySlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
