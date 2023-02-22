@@ -82,13 +82,14 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isLargerThan1280] = useMediaQuery("(min-width: 1080px)");
-  const { isAuth, token, name} = useSelector((store) => store.auth);
+  const { isAuth, token} = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
   const role = localStorage.getItem("role")
+  const name = localStorage.getItem("name")
   const handleTheLogout = () => {
     dispatch(logout());
     console.log("logout");
