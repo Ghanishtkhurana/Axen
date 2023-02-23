@@ -101,7 +101,6 @@ const GrocerySlider = () => {
           backgroundImage={`url(https://i.postimg.cc/gj0JRv78/Screenshot-2023-02-16-025748.png)`}
           bgSize={"cover"}
         >
-        
         </Box>
         <Box border={"1px"} borderColor={"gray.300"} w={"80%"}>
           <Carousel responsive={responsive}>

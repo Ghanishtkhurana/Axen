@@ -524,7 +524,7 @@ const Navbar = () => {
             {data == "No Products found" && (
               <Box
                 border={"3px solid"}
-                borderColor={"red"}
+                borderColor={"gray.300"}
                 overflowX={"hidden"}
                 maxH={"390px"}
                 position={"absolute"}

@@ -1,5 +1,13 @@
 import axios from "axios";
-import { Box, Center, Flex, Image, Link, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Image,
+  Link,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -21,7 +29,7 @@ const responsive = {
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 3,
+    items: 2,
   },
 };
 
@@ -95,30 +103,17 @@ const MobileHomeSlider = () => {
           </Flex>
         </div>
       )}
-      {/* Electronic  */}
-      <Flex flexDirection={"column"}>
-        <Text textAlign={"left"} ml={1} fontSize={"12px"} fontWeight={500}>Electronic & Appliances</Text>
-        <Box border={"1px"} borderColor={"gray.300"} w={"100%"}>
-          <Carousel responsive={responsive}>
-            {data.length > 0 &&
-              data.map((post, i) => (
-                <Box h={120} pl={2} pt={4} pr={2} key={i}>
-                  <Center>
-                    <Image width={"60px"} h={"70px"} src={post.img[0]} />
-                  </Center>
-                  <Text mt={3} noOfLines={1} fontWeight={500} fontSize={"10px"}>
-                    {post.title}
-                  </Text>
-                </Box>
-              ))}
-          </Carousel>
-        </Box>
-      </Flex>
 
       {/* Mobile  */}
-      <Flex flexDirection={"column"}>
-      <Text textAlign={"left"} ml={1} fontSize={"12px"} fontWeight={500}>Mobile Products</Text>
-      <Box border={"1px"} borderColor={"gray.300"} w={"100%"}>
+      <Flex mb={5}>
+        <Box
+          h={120}
+          w={"30%"}
+          overflow={"hidden"}
+          backgroundImage={`url(https://i.postimg.cc/gj0JRv78/Screenshot-2023-02-16-025748.png)`}
+          bgSize={"cover"}
+        ></Box>
+        <Box border={"1px"} borderColor={"gray.300"} w={"70%"}>
           <Carousel responsive={responsive}>
             {mobileData.length > 0 &&
               mobileData.map((post, i) => (
@@ -136,21 +131,32 @@ const MobileHomeSlider = () => {
       </Flex>
 
       {/* Grocery  */}
-      <Flex flexDirection={"column"}>
-      <Text textAlign={"left"} ml={1} fontSize={"12px"} fontWeight={500}>Grocery Products</Text>
-      <Box border={"1px"} borderColor={"gray.300"} w={"100%"}>
+      <Flex mb={5} mt={5}>
+      <Box
+          h={120}
+          w={"30%"}
+          overflow={"hidden"}
+          backgroundImage={`url(https://i.postimg.cc/g2mV771K/Screenshot-2023-02-16-024203.png)`}
+          bgSize={"cover"}
+        ></Box>
+        <Box border={"1px"} borderColor={"gray.300"} w={"70%"}>
           <Carousel responsive={responsive}>
             {groceryData.length > 0 &&
               groceryData.map((post, i) => (
                 <Link key={i} to={`/singlepage/${post._id}`}>
-                <Box h={120} pl={2} pr={2} onClick>
-                  <Center h={"90px"}>
-                    <Image width={"80px"} src={post.img[0]} />
-                  </Center>
-                  <Text mt={2} noOfLines={1} fontWeight={500} fontSize={"10px"}>
-                    {post.title}
-                  </Text>
-                </Box>
+                  <Box h={120} pl={2} pr={2} onClick>
+                    <Center h={"90px"}>
+                      <Image width={"80px"} src={post.img[0]} />
+                    </Center>
+                    <Text
+                      mt={2}
+                      noOfLines={1}
+                      fontWeight={500}
+                      fontSize={"10px"}
+                    >
+                      {post.title}
+                    </Text>
+                  </Box>
                 </Link>
               ))}
           </Carousel>
@@ -158,9 +164,15 @@ const MobileHomeSlider = () => {
       </Flex>
 
       {/* Home  */}
-      <Flex flexDirection={"column"}>
-      <Text textAlign={"left"} ml={1} fontSize={"12px"} fontWeight={500}>Home Products</Text>
-      <Box border={"1px"} borderColor={"gray.300"} w={"100%"}>
+      <Flex mb={5} mt={5}>
+      <Box
+          h={120}
+          w={"30%"}
+          overflow={"hidden"}
+          backgroundImage={`url(https://i.postimg.cc/JnV4Tf2r/Screenshot-2023-02-16-024516.png)`}
+          bgSize={"cover"}
+        ></Box>
+        <Box border={"1px"} borderColor={"gray.300"} w={"70%"}>
           <Carousel responsive={responsive}>
             {homeData.length > 0 &&
               homeData.map((post, i) => (
@@ -169,6 +181,32 @@ const MobileHomeSlider = () => {
                     <Image width={"70px"} h={"75px"} src={post.img[0]} />
                   </Center>
                   <Text mt={2} noOfLines={1} fontWeight={500} fontSize={"10px"}>
+                    {post.title}
+                  </Text>
+                </Box>
+              ))}
+          </Carousel>
+        </Box>
+      </Flex>
+
+      {/* Electronic  */}
+      <Flex mb={5} mt={5}>
+      <Box
+          h={120}
+          w={"30%"}
+          overflow={"hidden"}
+          backgroundImage={`url(https://i.postimg.cc/VLqf6Zvp/78731249.jpg)`}
+          bgSize={"cover"}
+        ></Box>
+        <Box border={"1px"} borderColor={"gray.300"} w={"70%"}>
+          <Carousel responsive={responsive}>
+            {data.length > 0 &&
+              data.map((post, i) => (
+                <Box h={120} pl={2} pt={4} pr={2} key={i}>
+                  <Center>
+                    <Image width={"60px"} h={"70px"} src={post.img[0]} />
+                  </Center>
+                  <Text mt={3} noOfLines={1} fontWeight={500} fontSize={"10px"}>
                     {post.title}
                   </Text>
                 </Box>
