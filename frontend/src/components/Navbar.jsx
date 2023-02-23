@@ -19,6 +19,7 @@ import {
   useDisclosure,
   useToast,
   Center,
+  Collapse,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FcSearch } from "react-icons/fc";
@@ -31,6 +32,7 @@ import { FiMonitor } from "react-icons/fi";
 import { RiHandHeartLine } from "react-icons/ri";
 import { ImCross } from "react-icons/im";
 import { RxCross2 } from "react-icons/rx";
+import { ImSearch } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/auth/auth.action";
@@ -302,6 +304,13 @@ const Navbar = () => {
             </Flex>
             {/* Box 2 */}
             <Flex>
+              <Button _hover={{}} bg={"none"}>
+                <Icon
+                  onClick={() => setShow(!show)}
+                  as={ImSearch}
+                  color={"white"}
+                />
+              </Button>
               <Link to={"/login"}>
                 <Button size={"md"} bg={"none"} _hover={{}} color={"white"}>
                   <Link to={"/login"}>
@@ -315,7 +324,13 @@ const Navbar = () => {
                 </Button>
               </Link>
               {/* Admin  */}
-              <Button mt={1} size={"sm"} bg={"none"} _hover={{}} color={"white"}>
+              <Button
+                mt={1}
+                size={"sm"}
+                bg={"none"}
+                _hover={{}}
+                color={"white"}
+              >
                 <Link to={"/admin"}>
                   {role == "Admin" && (
                     <Text onClick={handleTheAdmin} fontSize={"13px"}>
@@ -470,6 +485,84 @@ const Navbar = () => {
           </Flex>
         </Box>
       )}
+      <Collapse  in={show} animateOpacity>
+        <Box
+        ml={1}
+        zIndex={4}
+        position={"absolute"}
+        mt={10}
+          color="white"
+          // bg="teal.500"
+          rounded="md"
+          shadow="md"
+        >
+          <Box>
+            <InputGroup
+              mt={1}
+              size="md"
+              bgColor={"white"}
+              borderRadius={"10px"}
+            >
+              <Input
+                value={text}
+                w={"400px"}
+                color={"black"}
+                placeholder="Search Product"
+                onChange={handleTheSearch}
+                onKeyPress={(e) => handleTheKeyPress(e)}
+              />
+              <InputRightElement>
+                <Button bg={"none"} size="sm" _hover={{}} onClick={handleClick}>
+                  {data.length == 0 && <Icon as={FcSearch} w={4} h={4} />}
+                  {data.length !== 0 && (
+                    <Icon onClick={handleTheEmpty} color={"black"} as={RxCross2} w={4} h={4} />
+                  )}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            {/* Search Box  */}
+            {data == "No Products found" && (
+              <Box
+                border={"3px solid"}
+                borderColor={"red"}
+                overflowX={"hidden"}
+                maxH={"390px"}
+                position={"absolute"}
+                bgColor={"white"}
+                w={"400px"}
+                borderBottomRadius={10}
+              >
+                <Flex flexDirection={"column"} alignItems={"center"}>
+                  <Image
+                    w={250}
+                    src="https://i.postimg.cc/P55nPzSH/no-result.gif"
+                  />
+                  <Text fontWeight={500} fontSize={"18px"} mb={5}>
+                    No products found
+                  </Text>
+                </Flex>
+              </Box>
+            )}
+            {data !== "No Products found" && (
+              <Box
+                borderBottomRadius={10}
+                overflow={"scroll"}
+                overflowX={"hidden"}
+                border={"1px solid"}
+                borderColor={"gray.300"}
+                maxH={"390px"}
+                position={"absolute"}
+                bgColor={"white"}
+                w={"400px"}
+              >
+                {data.map((post, i) => (
+                  <SearchBox data={post} i={i} key={i} />
+                ))}
+              </Box>
+            )}
+          </Box>
+        </Box>
+      </Collapse>
     </Box>
   );
 };
