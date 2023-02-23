@@ -144,6 +144,7 @@ const Navbar = () => {
           bgColor={"purple.600"}
           position={"fixed"}
           width={"100%"}
+          background={`url(https://i.postimg.cc/HxVWNcHZ/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product-plain.jpg)center/cover no-repeat`}
         >
           <Flex p={1} justifyContent={"space-between"} mr={10} ml={10}>
             {/* Box 1 */}
@@ -157,7 +158,7 @@ const Navbar = () => {
                 </Link>
               </Box>
 
-              <Box>
+              <Box ml={5}>
                 <InputGroup
                   mt={1}
                   size="xs"
@@ -275,6 +276,7 @@ const Navbar = () => {
       ) : (
         //   Mobile
         <Box
+        background={`url(https://i.postimg.cc/HxVWNcHZ/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product-plain.jpg)center/cover no-repeat`}
           zIndex={3}
           position={"fixed"}
           width={"100%"}

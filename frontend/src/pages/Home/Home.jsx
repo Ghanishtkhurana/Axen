@@ -21,7 +21,7 @@ const Home = () => {
         </Box>
       ) : (
         // Mobile
-        <Box pt={10}>
+        <Box pt={10} bgColor={"gray.100"}>
           <HomeNav />
           <ImageSliderMob mt={1} />
           <Box mt={10} mb={10}>

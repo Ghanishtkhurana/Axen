@@ -1,3 +1,4 @@
+import { Center, Flex, Spinner, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
@@ -64,10 +65,35 @@ const PieChart = () => {
   };
   return (
     <>
+    {loading && (
+        <div>
+          <Flex justifyContent={"center"} flexDirection={"column"}>
+            <Center>
+              <Spinner
+                m={10}
+                thickness="4px"
+                speed="0.75s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+            <Text
+              mt={5}
+              mb={10}
+              fontWeight={500}
+              fontSize={"19px"}
+              color={"blue.500"}
+            >
+              Loading ...
+            </Text>
+          </Flex>
+        </div>
+      )}
       <Chart
         chartType="PieChart"
-        width="100%"
-        height="400px"
+        width="600px"
+        height="600px"
         data={data}
         options={options}
       />

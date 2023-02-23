@@ -77,7 +77,7 @@ const MobileHomeSlider = () => {
 
   console.log(data);
   return (
-    <div>
+    <Box>
       {loading && (
         <div>
           <Flex justifyContent={"center"} flexDirection={"column"}>
@@ -105,7 +105,7 @@ const MobileHomeSlider = () => {
       )}
 
       {/* Mobile  */}
-      <Flex mb={5}>
+      <Flex mb={5} >
         <Box
           h={120}
           w={"30%"}
@@ -214,7 +214,7 @@ const MobileHomeSlider = () => {
           </Carousel>
         </Box>
       </Flex>
-    </div>
+    </Box>
   );
 };
 

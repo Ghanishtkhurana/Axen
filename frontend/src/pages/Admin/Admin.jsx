@@ -7,6 +7,7 @@ import {
   Image,
   Center,
   ScaleFade,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdminNav from "./AdminNav";
@@ -94,8 +95,8 @@ const Admin = () => {
     setLoading(false);
   };
 
-  const Name = localStorage.getItem("name")
-  console.log("name",Name)
+  const Name = localStorage.getItem("name");
+  console.log("name", Name);
 
   console.log(name);
   return (
@@ -338,13 +339,10 @@ const Admin = () => {
                 </Link>
               </Flex>
               {/* pie chart box  */}
-              <Flex overflow={"hidden"} ml={5} justifyContent={"space-between"}>
-                <Box h={300} w={500} bgColor={"green.100"}>
-
-                </Box>
-                <Box mt={-5}>
+              <Flex overflow={"hidden"} ml={5} justifyContent={"center"}>
+                <Box mt={"-100px"}>
                   <ScaleFade initialScale={2} in={true}>
-                  <PieChart />
+                    <PieChart />
                   </ScaleFade>
                 </Box>
               </Flex>
@@ -352,7 +350,175 @@ const Admin = () => {
           </Flex>
         </Box>
       ) : (
-        <Box>Mobile</Box>
+        // Mobile
+        <Box>
+          <AdminNav />
+          {/* Cards  */}
+          <Center mt={10}>
+            <SimpleGrid columns={2} gap={4} alignItems={"center"}>
+              {/* users card  */}
+              <Link to={"/admin/users"}>
+                <Box
+                  pt={3}
+                  borderRadius={"10px"}
+                  background={
+                    "url(https://media.istockphoto.com/id/912278192/vector/abstract-orange-background-vector.jpg?s=612x612&w=0&k=20&c=GG0Iu1--sa2ARNxxoYom1igGdgDpUGI8lWVPPaOgzRs=) center/cover no-repeat"
+                  }
+                  h={110}
+                  w={170}
+                  bgColor={"gray.200"}
+                >
+                  <Center>
+                    <Box
+                      borderRadius={"50%"}
+                      background={
+                        "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                      }
+                      h={"50px"}
+                      w={"50px"}
+                    >
+                      <Icon mt={2} color={"white"} w={7} h={7} as={BiUser} />
+                    </Box>
+                  </Center>
+                  <Flex justifyContent={"center"} p={2} gap={2}>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      Total Users
+                    </Text>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      {users && users.length}
+                    </Text>
+                  </Flex>
+                </Box>
+              </Link>
+
+              {/* All Products card  */}
+              <Link to={"/admin/allproducts"}>
+                <Box
+                  pt={3}
+                  borderRadius={"10px"}
+                  background={
+                    "url(https://img.freepik.com/free-vector/gradient-background-green-tones_23-2148374530.jpg) center/cover no-repeat"
+                  }
+                  h={110}
+                  w={170}
+                  bgColor={"gray.200"}
+                >
+                  <Center>
+                    <Box
+                      borderRadius={"50%"}
+                      background={
+                        "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                      }
+                      h={"50px"}
+                      w={"50px"}
+                    >
+                      <Icon
+                        color={"white"}
+                        w={8}
+                        h={8}
+                        mt={2}
+                        as={GiCardboardBoxClosed}
+                      />
+                    </Box>
+                  </Center>
+                  <Flex justifyContent={"center"} p={1} gap={1}>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      Total Products
+                    </Text>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      {products && products.length}
+                    </Text>
+                  </Flex>
+                </Box>
+              </Link>
+              {/* Order card  */}
+              <Link to={"/admin/orders"}>
+                <Box
+                  borderRadius={"10px"}
+                  background={
+                    "url(https://img.freepik.com/premium-vector/abstract-blue-purple-gradient-color-background-website-banner-graphic-design_120819-729.jpg) center/cover no-repeat"
+                  }
+                  pt={3}
+                  h={110}
+                  w={170}
+                  bgColor={"gray.200"}
+                >
+                  <Center>
+                    <Box
+                      borderRadius={"50%"}
+                      background={
+                        "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                      }
+                      h={"50px"}
+                      w={"50px"}
+                    >
+                      <Icon
+                        mt={3}
+                        color={"white"}
+                        w={8}
+                        h={8}
+                        as={CiDeliveryTruck}
+                      />
+                    </Box>
+                  </Center>
+                  <Flex justifyContent={"center"} mt={1} p={2} gap={4}>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      Total Orders
+                    </Text>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      {order && order.length}
+                    </Text>
+                  </Flex>
+                </Box>
+              </Link>
+              {/* Add product card  */}
+              <Link to={"/admin/addproducts"}>
+                <Box
+                  borderRadius={"10px"}
+                  background={
+                    "url(https://uploads-ssl.webflow.com/5a9ee6416e90d20001b20038/62ee0d23043a368090e6f389_Rectangle%201%20-%202022-08-06T094136.523.svg) center/cover no-repeat"
+                  }
+                  pt={3}
+                  h={110}
+                  w={170}
+                  bgColor={"gray.200"}
+                >
+                  <Center>
+                    <Box
+                      borderRadius={"50%"}
+                      background={
+                        "url(https://media.istockphoto.com/id/1304090862/video/abstract-background.jpg?s=640x640&k=20&c=Jfb9RLrp8cUYX_6rmqUeItfqUCuLDT60NvwR8ZXBsTw=) center/cover no-repeat"
+                      }
+                      h={"50px"}
+                      w={"50px"}
+                    >
+                      <Icon
+                        mt={3}
+                        color={"white"}
+                        w={7}
+                        h={7}
+                        as={MdOutlineAddShoppingCart}
+                      />
+                    </Box>
+                  </Center>
+                  <Flex justifyContent={"center"} mt={1} p={2} gap={4}>
+                    <Text color={"white"} fontSize={"16px"} fontWeight={500}>
+                      Add Products
+                    </Text>
+                  </Flex>
+                </Box>
+              </Link>
+            </SimpleGrid>
+          </Center>
+          {/* pie chart box  */}
+          <Flex overflow={"hidden"} ml={5} justifyContent={"center"}>
+            <Box mt={"-100px"} mb={"-100px"} ml={"30px"}>
+              <ScaleFade initialScale={2} in={true}>
+                <PieChart />
+              </ScaleFade>
+            </Box>
+          </Flex>
+        </Box>
       )}
     </Box>
   );
