@@ -98,6 +98,7 @@ const LaptopCheckout = ({
         isClosable: true,
       });
     }
+    handleTheFetch();
   };
   return (
     <>

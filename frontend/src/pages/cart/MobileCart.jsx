@@ -8,6 +8,7 @@ import {
   Icon,
   Toast,
   useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import { GoStar } from "react-icons/go";
 import { SlPlus } from "react-icons/sl";
 import { FiMinusCircle } from "react-icons/fi";
 import { SlHandbag } from "react-icons/sl";
+import LaptopCheckout from "../Checkout/LaptopCheckout";
 
 const getCart = async () => {
   let toki = localStorage.getItem("token");
@@ -78,6 +80,8 @@ const itemDelete = async (id) => {
 const MobileCart = () => {
   const [data, setData] = useState([]);
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = React.useRef()
 
   useEffect(() => {
     handleTheFetch();
@@ -101,11 +105,13 @@ const MobileCart = () => {
     handleTheFetch();
   };
 
-  const handleTheCheckout = () => {};
+  const handleTheCheckout = () => {
+    console.log("hi checkout")
+  };
 
   const handleTheDelete = async (id) => {
     console.log(id);
-    await itemDelete(id);
+    itemDelete(id);
     handleTheFetch();
     toast({
       position: "top",
@@ -117,6 +123,7 @@ const MobileCart = () => {
   };
 
   let total = data.reduce((acc, el) => acc + el.price2 * el.quantity, 0);
+  let paid = total === 0 ? 0 : data.reduce((acc, el) => acc + el.price2 * el.quantity, 0) + 100
   return (
     <Box pt={5} bgColor={"gray.100"} pb={10}>
       <Flex ml={3} gap={1}>
@@ -326,7 +333,7 @@ const MobileCart = () => {
             <Box>
               <Flex justifyContent="space-between" fontSize={12} p="10px">
                 <Text>Item Total(MRP)</Text>
-                <Text>₹ {total}</Text>
+                <Text>₹ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               </Flex>
             </Box>
             <hr></hr>
@@ -340,23 +347,24 @@ const MobileCart = () => {
             <Box>
               <Flex justifyContent="space-between" fontSize={12} p="10px">
                 <Text>To be paid</Text>
-                <Text>₹ {total + 100}</Text>
+                <Text>₹ {paid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               </Flex>
             </Box>
           </Box>
           <Button
-            onClick={() => handleTheCheckout(data[0].userID)}
+            onClick={onOpen}
             w="90%"
             bgColor={"purple.500"}
             mt="10px"
             _hover={{}}
           >
             <Text fontWeight={500} color={"white"}>
-              PAY NOW
+            Proceed to Buy
             </Text>
           </Button>
         </Box>
       </Flex>
+      <LaptopCheckout handleTheFetch={handleTheFetch} totalPrice={paid} cart={data} cancelRef={cancelRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Box>
   );
 };

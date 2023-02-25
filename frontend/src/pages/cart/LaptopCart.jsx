@@ -312,7 +312,6 @@ const LaptopCart = () => {
           </Box>
           <Button
             onClick={onOpen}
-            // onClick={() => handleTheCheckout(data[0].userID)}
             w="100%"
             bgColor={"purple.500"}
             width="400px"

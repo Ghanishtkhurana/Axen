@@ -4,7 +4,6 @@ import {
   Center,
   Flex,
   Image,
-  Link,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -12,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { site } from "../../components/backend";
+import { Link } from "react-router-dom";
 
 const responsive = {
   superLargeDesktop: {
@@ -105,7 +105,7 @@ const MobileHomeSlider = () => {
       )}
 
       {/* Mobile  */}
-      <Flex mb={5} >
+      <Flex mb={5}>
         <Box
           h={120}
           w={"30%"}
@@ -117,14 +117,28 @@ const MobileHomeSlider = () => {
           <Carousel responsive={responsive}>
             {mobileData.length > 0 &&
               mobileData.map((post, i) => (
-                <Box h={120} pl={2} pt={2} pr={2} key={i}>
-                  <Center>
-                    <Image width={"60px"} h={"80px"} src={post.img[0]} />
-                  </Center>
-                  <Text mt={3} noOfLines={1} fontWeight={500} fontSize={"10px"}>
-                    {post.title}
-                  </Text>
-                </Box>
+                <Link to={`/singlepage/${post._id}`}>
+                  <Box
+                    onClick={() => Navigator("/mobile")}
+                    h={120}
+                    pl={2}
+                    pt={2}
+                    pr={2}
+                    key={i}
+                  >
+                    <Center>
+                      <Image width={"60px"} h={"80px"} src={post.img[0]} />
+                    </Center>
+                    <Text
+                      mt={3}
+                      noOfLines={1}
+                      fontWeight={500}
+                      fontSize={"10px"}
+                    >
+                      {post.title}
+                    </Text>
+                  </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
@@ -132,7 +146,7 @@ const MobileHomeSlider = () => {
 
       {/* Grocery  */}
       <Flex mb={5} mt={5}>
-      <Box
+        <Box
           h={120}
           w={"30%"}
           overflow={"hidden"}
@@ -165,7 +179,7 @@ const MobileHomeSlider = () => {
 
       {/* Home  */}
       <Flex mb={5} mt={5}>
-      <Box
+        <Box
           h={120}
           w={"30%"}
           overflow={"hidden"}
@@ -176,6 +190,7 @@ const MobileHomeSlider = () => {
           <Carousel responsive={responsive}>
             {homeData.length > 0 &&
               homeData.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={120} pl={2} pt={2} pr={2} key={i}>
                   <Center>
                     <Image width={"70px"} h={"75px"} src={post.img[0]} />
@@ -184,6 +199,7 @@ const MobileHomeSlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>
@@ -191,7 +207,7 @@ const MobileHomeSlider = () => {
 
       {/* Electronic  */}
       <Flex mb={5} mt={5}>
-      <Box
+        <Box
           h={120}
           w={"30%"}
           overflow={"hidden"}
@@ -202,6 +218,7 @@ const MobileHomeSlider = () => {
           <Carousel responsive={responsive}>
             {data.length > 0 &&
               data.map((post, i) => (
+                <Link to={`/singlepage/${post._id}`}>
                 <Box h={120} pl={2} pt={4} pr={2} key={i}>
                   <Center>
                     <Image width={"60px"} h={"70px"} src={post.img[0]} />
@@ -210,6 +227,7 @@ const MobileHomeSlider = () => {
                     {post.title}
                   </Text>
                 </Box>
+                </Link>
               ))}
           </Carousel>
         </Box>

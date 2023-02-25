@@ -99,9 +99,9 @@ const Navbar = () => {
 
   const GoToCart = () => {
     if (isAuth) {
-      navigate("/cart");
+      return navigate("/cart");
     } else {
-      toast({
+       return toast({
         title: "Required Login",
         position: "top",
         status: "warning",
@@ -256,7 +256,7 @@ const Navbar = () => {
                   </Link>
                   {role == "User" && <Text fontSize={"13px"}>User</Text>}
                   <Link to={"/signin"}>
-                    {role == "" && <Text fontSize={"13px"}>Sign-In</Text>}
+                    {!role && <Text fontSize={"13px"}>Sign-In</Text>}
                   </Link>
                 </Button>
                 <Button
@@ -342,11 +342,10 @@ const Navbar = () => {
                 </Link>
                 {role == "User" && <Text fontSize={"13px"}>User</Text>}
                 <Link to={"/signin"}>
-                  {role == "" && <Text fontSize={"13px"}>Sign-In</Text>}
+                  {!role && <Text fontSize={"13px"}>Sign-In</Text>}
                 </Link>
               </Button>
               {/* Drawer  */}
-              <Link to={"/cart"}>
                 <Button
                   size={"md"}
                   onClick={GoToCart}
@@ -357,7 +356,6 @@ const Navbar = () => {
                 >
                   <Icon as={HiShoppingCart} w={6} h={6} />
                 </Button>
-              </Link>
               <Drawer
                 isOpen={isOpen}
                 placement="left"
@@ -457,7 +455,6 @@ const Navbar = () => {
                         </Button>
                       </Link>
 
-                      <Link to={"/cart"}>
                         <Button
                           onClick={GoToCart}
                           m={1}
@@ -469,7 +466,6 @@ const Navbar = () => {
                             Cart
                           </Text>
                         </Button>
-                      </Link>
                       <Button
                         m={1}
                         size="md"
@@ -494,7 +490,6 @@ const Navbar = () => {
         position={"absolute"}
         mt={10}
           color="white"
-          // bg="teal.500"
           rounded="md"
           shadow="md"
         >

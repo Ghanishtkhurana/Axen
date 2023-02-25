@@ -107,7 +107,7 @@ const GrocerySlider = () => {
             {mobileData.length > 0 &&
               mobileData.map((post, i) => (
                 <Link to={`/singlepage/${post._id}`}>
-                <Box h={200} pl={10} pr={10} key={i} pt={10}>
+                <Box  h={200} pl={10} pr={10} key={i} pt={10}>
                   <Center h={"100px"}>
                     <Image width={"90px"} src={post.img[0]} />
                   </Center>

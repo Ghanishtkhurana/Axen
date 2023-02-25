@@ -27,7 +27,7 @@ const postCart = async (data) => {
       Authorization: toki,
     },
   });
-  console.log(res.data);
+  console.log("post cart",res.data);
 };
 
 const MobileSinglepage = ({ data }) => {
@@ -110,7 +110,7 @@ const MobileSinglepage = ({ data }) => {
               </Text>
             </Flex>
           </Button>
-          <Button _hover={{}} width={"48%"} bgColor={"orange.300"} color={"white"}>
+          <Button onClick={() => handleTheCart(data)} _hover={{}} width={"48%"} bgColor={"orange.300"} color={"white"}>
             Buy Now
           </Button>
         </Flex>
